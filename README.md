@@ -22,22 +22,24 @@ a PHP project manager written in Python.
 
 # Introduction
 
+# Get started
+To initialize a new project, simply do this:
+```bash
+./phakit --create <PROJECT_NAME> -- path <PATH>
+```
+
+Automatically create documentation for your project:
+```bash
+./phpm --docs <DOCS_FOLDER>
+```
+
 # Requirements
 - [x] Python > 3.12
 - [x] PHP > 8.3
 - [x] Webserver (Apache2/NGINX)
 
 # Planned features
-
-## Create new project
-
-To initialize a new project, simply do this:
-```bash
-./phakit --create <PROJECT_NAME> -- path <PATH>
-```
-
-## Automatic documentation
-Automatically create documentation for your project:
-```bash
-./phpm --docs <DOCS_FOLDER>
-```
+- [ ] Create projects
+- [ ] Create a `index.php` template
+- [ ] JS and CSS
+- [ ] Automatic documentation
