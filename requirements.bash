@@ -30,6 +30,12 @@ PIP3=$(which pip3)
 PIP="$PIP3"
 GIT=$(which git)
 
+# Make sure we have sudo access
+if [ "$EUID" -ne 0 ]; then
+    echo "[ERROR] Please run installer as root."
+    exit 1
+fi
+
 # Make sure Python exists
 if [ -z "$PYTHON" ]; then
     echo "[ERROR] Python 3 is not installed."
