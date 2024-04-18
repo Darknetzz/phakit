@@ -6,11 +6,6 @@ import os, sys, argparse, subprocess
 if sys.version_info < (3, 11):
     sys.exit("Python 3.11 or later is required.")
 
-# Read contents of file `VERSION`
-def phakit_version():
-    with open('VERSION', 'r') as f:
-        return f.read().strip()
-
 def main():
     parser = argparse.ArgumentParser(
         prog='phakit',

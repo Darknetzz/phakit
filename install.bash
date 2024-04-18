@@ -17,7 +17,36 @@ cat << EOF
 # ───────────────────────────────────────────────────────────────────────────── #
 EOF
 
-# Config
+# ────────────────────────────── INSTALL SCRIPT ────────────────────────────── #
+#
+#           This script will install/upgrade phakit and it's dependencies.
+#           See more at https://github.com/Darknetzz/phakit
+#
+# ──────────────────────────────────────────────────────────────────────────── #
+
+
+
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                 REQUIREMENTS                                 #
+# ──────────────────────────────────────────────────────────────────────────── #
+# Check if requirements.bash exists
+REQUIREMENTS_SCRIPT="$CWD/requirements.bash"
+if [ ! -f $REQUIREMENTS_SCRIPT ]; then
+    echo "[WARNING] requirements.bash not found. Attempting to fetch from GitHub..."
+    
+    echo "Downloading requirements..."
+    wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements
+    wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements.bash | source
+    echo "You might need to install some packages manually."
+else
+    echo "Requirements script found. Installing requirements..."
+    source "$REQUIREMENTS_SCRIPT"
+fi
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                    CONFIG                                    #
+# ──────────────────────────────────────────────────────────────────────────── #
 CWD=$(pwd)
 PATH_SCRIPT_NAME="./phakit"
 
@@ -29,16 +58,9 @@ DEST_PATH_DIR="/etc/phakit"
 DEST_VERSION_FILE="$DEST_PATH_DIR/VERSION"
 DEST_VERSION=$(cat $DEST_VERSION_FILE)
 
-REQUIREMENTS_SCRIPT="$CWD/requirements.bash"
-
-# Check if requirements.bash exists
-if [ ! -f $REQUIREMENTS_SCRIPT ]; then
-    echo "[WARNING] requirements.bash not found. You might need to install some packages manually."
-else
-    echo "Requirements script found. Installing requirements..."
-    source "$REQUIREMENTS_SCRIPT"
-fi
-
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                   PRECHECKS                                  #
+# ──────────────────────────────────────────────────────────────────────────── #
 # Check if phakit is already installed
 echo "Checking for existing version..."
 if [ -d $DEST_PATH_DIR -a -f $DEST_VERSION_FILE ]; then
