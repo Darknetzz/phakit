@@ -40,6 +40,10 @@ Automatically create documentation for your project:
 
 # Planned features
 - [ ] Create projects
+- [ ] Initialize git
+- [ ] (php-utils)[https://github.com/Darknetzz/php-utils]
+- [ ] (php-api)[https://github.com/Darknetzz/php-api]
+- [ ] (js-utils)[https://github.com/Darknetzz/js-utils]
 - [ ] Create a `index.php` template
 - [ ] JS and CSS
 - [ ] Automatic documentation
