@@ -26,29 +26,13 @@ EOF
 
 
 
-
-# ──────────────────────────────────────────────────────────────────────────── #
-#                                 REQUIREMENTS                                 #
-# ──────────────────────────────────────────────────────────────────────────── #
-# Check if requirements.bash exists
-REQUIREMENTS_SCRIPT="$CWD/requirements.bash"
-if [ ! -f $REQUIREMENTS_SCRIPT ]; then
-    echo "[WARNING] requirements.bash not found. Attempting to fetch from GitHub..."
-    
-    echo "Downloading requirements..."
-    wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements
-    wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements.bash | source
-    echo "You might need to install some packages manually."
-else
-    echo "Requirements script found. Installing requirements..."
-    source "$REQUIREMENTS_SCRIPT"
-fi
-
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                    CONFIG                                    #
 # ──────────────────────────────────────────────────────────────────────────── #
 CWD=$(pwd)
 PATH_SCRIPT_NAME="phakit"
+
+TEMP_PATH="~/.phakit"
 
 SOURCE_PATH_DIR="$CWD/phakit"
 SOURCE_VERSION_FILE="$SOURCE_PATH_DIR/VERSION"
@@ -57,6 +41,42 @@ SOURCE_VERSION=$(cat $SOURCE_VERSION_FILE)
 DEST_PATH_DIR="/etc/phakit"
 DEST_VERSION_FILE="$DEST_PATH_DIR/VERSION"
 DEST_VERSION=$(cat $DEST_VERSION_FILE)
+
+
+echo "Starting installation..."
+
+# Check if the script is being run remotely
+if [[ $1 == "--remote" ]]; then
+    echo "Script is being run remotely."
+    echo "Changing directory to $TEMP_PATH..."
+    cd "$TEMP_PATH"
+    echo "Downloading requirements..."
+    wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements
+    echo "Downloading requirements.bash..."
+    wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements.bash
+else
+    echo "Script is being run locally."
+fi
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                 REQUIREMENTS                                 #
+# ──────────────────────────────────────────────────────────────────────────── #
+REQUIREMENTS_SCRIPT="$CWD/requirements.bash"
+REQUIREMENTS_FILE="$CWD/requirements"
+
+if [ ! -f "$REQUIREMENTS_FILE" ]; then
+    echo "[ERROR] Requirements file not found in $CWD."
+    exit 1
+fi
+
+# Check if requirements.bash exists
+if [ ! -f "$REQUIREMENTS_SCRIPT" ]; then
+    echo "[ERROR] requirements.bash not found in $CWD. Are you running with '--remote' flag?"
+    echo "You might need to install some packages manually."
+else
+    echo "Requirements script found. Installing requirements..."
+    source "$REQUIREMENTS_SCRIPT"
+fi
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   PRECHECKS                                  #

@@ -27,7 +27,7 @@ a PHP project manager written in Python.
 
 ## Option 1: Using the automated installer (recommended)
 ```bash
-wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | bash
+curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | bash -s -- --remote
 ```
 
 ## Option 2: Manually install

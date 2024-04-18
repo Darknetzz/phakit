@@ -30,6 +30,12 @@ PIP3=$(which pip3)
 PIP="$PIP3"
 GIT=$(which git)
 
+# Check if we are running bash
+if [ -z "$BASH_VERSION" ]; then
+    echo "[ERROR] Please run the installer using bash."
+    exit 1
+fi
+
 # Make sure we have sudo access
 if [ "$EUID" -ne 0 ]; then
     echo "[ERROR] Please run installer as root."
