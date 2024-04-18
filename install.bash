@@ -50,7 +50,7 @@ fi
 CWD=$(pwd)
 PATH_SCRIPT_NAME="phakit"
 
-SOURCE_PATH_DIR="$CWD"
+SOURCE_PATH_DIR="$CWD/phakit"
 SOURCE_VERSION_FILE="$SOURCE_PATH_DIR/VERSION"
 SOURCE_VERSION=$(cat $SOURCE_VERSION_FILE)
 
@@ -77,13 +77,13 @@ fi
 git clone https://github.com/Darknetzz/phakit.git phakit
 
 # Make sure the script files are executable
-chmod +x "$CWD/install.bash"
-chmod +x "$CWD/phakit"
-chmod +x "$CWD/phakit.py"
+chmod +x "$SOURCE_PATH_DIR/install.bash"
+chmod +x "$SOURCE_PATH_DIR/phakit"
+chmod +x "$SOURCE_PATH_DIR/phakit.py"
 
 # Copy phakit to /etc
-cp -r phakit /etc
+cp -r "$SOURCE_PATH_DIR" /etc
 
 # Link `phakit` and the Python script to /usr/local/bin
-ln -s ~/phakit/phakit /usr/local/bin/phakit
-ln -s ~/phakit/phakit.py /usr/local/bin/phakit.py
+ln -s "$SOURCE_PATH_DIR/phakit" /usr/local/bin/phakit
+ln -s "$SOURCE_PATH_DIR/phakit.py" /usr/local/bin/phakit.py
