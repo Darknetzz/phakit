@@ -31,22 +31,36 @@ wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash |
 ```
 
 ## Option 2: Manually install
-This is essentially exactly what the `install.bash` file does.
+For those who favors control over simplicity.
 ```bash
+CWD=$(pwd)
+PATH_SCRIPT_NAME="phakit"
+
+SOURCE_PATH_DIR="$CWD"
+SOURCE_VERSION_FILE="$SOURCE_PATH_DIR/VERSION"
+SOURCE_VERSION=$(cat $SOURCE_VERSION_FILE)
+
+DEST_PATH_DIR="/etc/phakit"
+DEST_VERSION_FILE="$DEST_PATH_DIR/VERSION"
+DEST_VERSION=$(cat $DEST_VERSION_FILE)
+
 # Change directory to home directory
 cd ~
 
 # Clone the git repo
 git clone https://github.com/Darknetzz/phakit.git phakit
 
-# Change to phakit directory
-cd phakit
+# Make sure the script files are executable
+chmod +x "phakit/install.bash"
+chmod +x "phakit/phakit"
+chmod +x "phakit/phakit.py"
 
-# Make sure it's executable
-chmod +x phakit.py
+# Copy phakit to /etc
+cp -r phakit "$DEST_PATH_DIR"
 
-# Run it
-bash phakit/install.bash
+# Link `phakit` and the Python script to /usr/local/bin
+ln -s "$SOURCE_PATH_DIR/phakit" /usr/local/bin/phakit
+ln -s "$SOURCE_PATH_DIR/phakit.py" /usr/local/bin/phakit.py
 ```
 
 # Usage

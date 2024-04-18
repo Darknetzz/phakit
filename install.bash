@@ -48,7 +48,7 @@ fi
 #                                    CONFIG                                    #
 # ──────────────────────────────────────────────────────────────────────────── #
 CWD=$(pwd)
-PATH_SCRIPT_NAME="./phakit"
+PATH_SCRIPT_NAME="phakit"
 
 SOURCE_PATH_DIR="$CWD"
 SOURCE_VERSION_FILE="$SOURCE_PATH_DIR/VERSION"
