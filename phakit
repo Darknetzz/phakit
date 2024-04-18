@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Path to your python script
+SCRIPT_PATH="phakit.py"
+
+# Call the python script with all arguments passed to the bash script
+python3 "$SCRIPT_PATH" "$@"

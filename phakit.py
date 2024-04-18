@@ -2,10 +2,19 @@
 
 import os, sys, argparse, subprocess
 
+# Check Python version
+if sys.version_info < (3, 11):
+    sys.exit("Python 3.11 or later is required.")
+
 def main():
-    parser = argparse.ArgumentParser(description='A tool to make a package from a directory')
-    parser.add_argument('directory', help='The directory to package')
-    parser.add_argument('output', help='The output file')
+    parser = argparse.ArgumentParser(
+        prog='phakit',
+        description='A tool to make a package from a directory',
+        epilog='by @Darknetzz'
+    )
+
+    parser.add_argument('-c', '--create', help='Initialize a new project')
+    parser.add_argument('-d', '--docs')
     args = parser.parse_args()
 
     if not os.path.exists(args.directory):
