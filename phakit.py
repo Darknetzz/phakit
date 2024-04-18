@@ -6,6 +6,11 @@ import os, sys, argparse, subprocess
 if sys.version_info < (3, 11):
     sys.exit("Python 3.11 or later is required.")
 
+# Read contents of file `VERSION`
+def phakit_version():
+    with open('VERSION', 'r') as f:
+        return f.read().strip()
+
 def main():
     parser = argparse.ArgumentParser(
         prog='phakit',
@@ -13,17 +18,16 @@ def main():
         epilog='by @Darknetzz'
     )
 
-    parser.add_argument('-c', '--create', help='Initialize a new project')
-    parser.add_argument('-d', '--docs')
+    parser.add_argument('-i', '--init', help='Initialize a new project', default=None)
+    parser.add_argument('-d', '--docs', help='Automatically create docs for your project')
+    parser.add_argument('-v', '--version', help='Get current installed version of phakit')
     args = parser.parse_args()
 
-    if not os.path.exists(args.directory):
-        print('Directory does not exist')
-        sys.exit(1)
-
-    if os.path.exists(args.output):
-        print('Output file already exists')
-        sys.exit(1)
+    if args.init is not None:
+        print("Initializing new project...")
+        if os.path.exists(args.directory):
+            print('Directory already exists. Please specify a directory that does not exist.')
+            sys.exit(1)
 
     subprocess.run(['tar', '-czf', args.output, args.directory])
 

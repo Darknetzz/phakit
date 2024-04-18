@@ -21,6 +21,7 @@ a PHP project manager written in Python.
 ```
 
 # Introduction
+**phakit** is a simple PHP project/package manager.
 
 # Get started
 
@@ -30,15 +31,25 @@ wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash |
 ```
 
 ## Option 2: Manually install
-* Download the latest release or git clone the repo:
+This is essentially exactly what the `install.bash` file does.
 ```bash
+# Change directory to home directory
 cd ~
+
+# Clone the git repo
 git clone https://github.com/Darknetzz/phakit.git phakit
-chmod +x install.bash
+
+# Change to phakit directory
+cd phakit
+
+# Make sure it's executable
+chmod +x phakit.py
+
+# Run it
 bash phakit/install.bash
 ```
 
-
+# Usage
 
 To initialize a new project, simply do this:
 ```bash
