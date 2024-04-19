@@ -181,7 +181,7 @@ check_installed() {
     fi
 
     if [ -z "$LOCAL_VERSION" ]; then
-        quit "Unable to update phakit. Unable to read LOCAL_VERSION (empty). Check permissions." "ERROR"
+        quit 101 "Unable to update phakit. Unable to read LOCAL_VERSION (empty). Check permissions."
     fi
 
     check_update
@@ -237,12 +237,12 @@ fi
 
 # Check if this script is invoked by the installer script
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    quit 162 "Precheck failed: This script should not be run directly. Exiting..."
+    quit 162 "Precheck failed: This script should not be run directly."
 fi
 
 # Check if we have /usr/local/bin
 if [ ! -d "$LOCAL_LINK_PATH" ]; then
-    quit 163 "Precheck failed: $LOCAL_LINK_PATH does not exist. Exiting..."
+    quit 163 "Precheck failed: $LOCAL_LINK_PATH does not exist."
 fi
 # ──────────────────────────────────────────────────────────────────────────── #
 #                             !SECTION: /PRECHECKS                             #

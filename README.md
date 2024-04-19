@@ -155,11 +155,15 @@ wget -O - "$UNINSTALL_SCRIPT" | sudo bash -s
 
 ### 0-9: General
 * **0** - Success
+    * *specifically non-error - cancelling operation would also exit with 0*
 * **1** - Not running bash
 * **2** - Not running as root
 
 ### 10-19: Install
 * **10** - Could not change directory to $HOME.
+
+### 40-49: Update
+* **101** - Unable to update phakit. Unable to read LOCAL_VERSION (empty). Check permissions.
 
 ### 90-99: Uninstall
 * **90** - phakit is not installed.

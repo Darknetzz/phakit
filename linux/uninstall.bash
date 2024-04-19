@@ -33,8 +33,7 @@ read -p "Are you sure you want to uninstall phakit? (y/N) " -n 1 -r
 echo    # move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
-    echo "Uninstallation cancelled."
-    exit 1
+    quit 0 "Uninstallation cancelled."
 fi
 
 print "Uninstalling phakit..." "INFO"
