@@ -42,5 +42,7 @@ else
     fi
 fi
 
+echo "[OK] Found phakit, running from $SCRIPT_BIN..."
+
 # Call the python script with all arguments passed to the bash script
 python3 "$SCRIPT_BIN" "$@"
