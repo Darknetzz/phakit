@@ -51,12 +51,12 @@ It is specifically designed for PHP
 ### Option 1: Using the automated installer (recommended)
 * Using cURL:
 ```bash
-bash -s <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash)
+sudo bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash)
 ```
 
 * Using wget:
 ```bash
-wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | sudo bash -s
+wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | sudo bash
 ```
 
 ### Option 2: Manually install
