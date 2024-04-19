@@ -17,53 +17,12 @@
 # 100                : Could not import config file
 
 
-
-
-
-
 # ──────────────────────────────────────────────────────────────────────────── #
-#                          SECTION: PRECHECKS                                  #
+#                          SECTION: INCLUDES                                   #
 # ──────────────────────────────────────────────────────────────────────────── #
-# Check if we are running bash
-if [ -z "$BASH_VERSION" ]; then
-    quit 1 "Please run the installer using bash."
-fi
-
-# Make sure we have sudo access
-if [ "$EUID" -ne 0 ]; then
-    quit 2 "Please run installer as root."
-fi
-# ────────────────────────── !SECTION /PRECHECKS ──────────────────────────── #
-
-
-# ──────────────────────────────────────────────────────────────────────────── #
-#                           SECTION: CONFIG                                    #
-# ──────────────────────────────────────────────────────────────────────────── #
-CONFIG_IMPORTED="0"
-GITHUB_CONFIGFILE_URL="https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/config.bash"
-source <(curl -s "$GITHUB_CONFIGFILE")
-
-if [ "$CONFIG_IMPORTED" -ne "1" ]; then
-    quit 100 "Could not import config file from GitHub."
-else
-    print "Config file imported." "SUCCESS"
-fi
-# ───────────────────────────── !SECTION: /CONFIG ──────────────────────────── #
-
-
-# ──────────────────────────────────────────────────────────────────────────── #
-#                              SECTION: FUNCTIONS                              #
-# ──────────────────────────────────────────────────────────────────────────── #
-FUNCTIONS_IMPORTED="0"
-source <(curl -s "$GITHUB_FUNCTIONS_URL")
-
-if [ "$FUNCTIONS_IMPORTED" -ne "1" ]; then
-    quit 100 "Could not import functions.bash file from GitHub."
-else
-    print "Config file imported." "SUCCESS"
-fi
-
-# ──────────────────────────── !SECTION /FUNCTIONS ─────────────────────────── #
+GITHUB_INCLUDES_FILE="https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/includes.bash"
+source <(curl -s "$INCLUDES_FILE")
+# ────────────────────────── !SECTION /INCLUDES ──────────────────────────── #
 
 
 
