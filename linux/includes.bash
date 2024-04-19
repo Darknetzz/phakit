@@ -71,6 +71,7 @@ print() {
     local GREEN='\033[0;32m'
     local YELLOW='\033[1;33m'
     local BLUE='\033[0;34m'
+    local PURPLE='\033[0;35m'
     local NC='\033[0m' # No Color
 
     # Choose color based on message type
@@ -80,6 +81,7 @@ print() {
         "SUCCESS") COLOR=$GREEN;;
         "WARNING") COLOR=$YELLOW;;
         "INFO") COLOR=$BLUE;;
+        "PROMPT") COLOR=$PURPLE;;
     esac
 
     # Print message
@@ -90,8 +92,9 @@ print() {
 prompt() {
     local PROMPT="$1"
     # Prompt the user for verification
-    read -p "$PROMPT (y/N) " -n 1 -r
-    echo    # move to a new line
+    print "$PROMPT" "PROMPT"
+    read -p "Continue? (y/N) " -n 1 -r
+    echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]
     then
         return 1
