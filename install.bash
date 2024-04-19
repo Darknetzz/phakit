@@ -25,25 +25,68 @@ EOF
 # ──────────────────────────────────────────────────────────────────────────── #
 
 
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                   PRECHECKS                                  #
+# ──────────────────────────────────────────────────────────────────────────── #
+# Check if we are running bash
+if [ -z "$BASH_VERSION" ]; then
+    echo "[ERROR] Please run the installer using bash."
+    exit 1
+fi
+
+# Make sure we have sudo access
+if [ "$EUID" -ne 0 ]; then
+    echo "[ERROR] Please run installer as root."
+    exit 1
+fi
+
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                    CONFIG                                    #
 # ──────────────────────────────────────────────────────────────────────────── #
+# REVIEW: What folder should we use?
+
+# Store current folder for later
 CWD=$(pwd)
-PATH_SCRIPT_NAME="phakit"
 
+# Set the temporary path and change directory
 TEMP_PATH="~/.phakit"
+if [ ! -d "$TEMP_PATH" ]; then
+    mkdir -p "$TEMP_PATH"
+fi
+cd "$TEMP_PATH"
 
-SOURCE_PATH_DIR="$CWD/phakit"
-SOURCE_VERSION_FILE="$SOURCE_PATH_DIR/VERSION"
-SOURCE_VERSION=$(cat $SOURCE_VERSION_FILE)
+# Set the source path
+SOURCE_PATH_DIR="$TEMP_PATH"
 
+# Set the destination path
 DEST_PATH_DIR="/etc/phakit"
 DEST_VERSION_FILE="$DEST_PATH_DIR/VERSION"
-DEST_VERSION=$(cat $DEST_VERSION_FILE)
+if [ -f "$DEST_VERSION_FILE" ]; then
+    DEST_VERSION=$(cat "$DEST_VERSION_FILE")
+else
+    DEST_VERSION=0
+fi
 
+GITHUB_VERSION=$(curl -s https://api.github.com/repos/Darknetzz/phakit/releases/latest | grep tag_name | cut -d '"' -f 4)
 
 echo "Starting installation..."
+
+# Check if phakit is already installed
+echo "Checking for existing version..."
+if [ "$DEST_VERSION" != 0 ]; then
+    echo "Version $DEST_VERSION of phakit is already installed in $DEST_PATH_DIR."
+    echo "Checking for updates..."
+    if [ $GITHUB_VERSION == $DEST_VERSION ]; then
+        echo "No new updates available."
+        exit 0
+    fi
+else
+    echo "phakit not installed. Installing phakit..."
+fi
+
+
+echo "New version available ($GITHUB_VERSION)! Updating..."
 
 # Check if the script is being run remotely
 if [[ $1 == "--remote" ]]; then
@@ -76,17 +119,6 @@ if [ ! -f "$REQUIREMENTS_SCRIPT" ]; then
 else
     echo "Requirements script found. Installing requirements..."
     source "$REQUIREMENTS_SCRIPT"
-fi
-
-# ──────────────────────────────────────────────────────────────────────────── #
-#                                   PRECHECKS                                  #
-# ──────────────────────────────────────────────────────────────────────────── #
-# Check if phakit is already installed
-echo "Checking for existing version..."
-if [ -d $DEST_PATH_DIR -a -f $DEST_VERSION_FILE ]; then
-    echo "phakit version $DEST_VERSION is already installed in $DEST_PATH_DIR. Upgrading to latest version..."
-else
-    echo "phakit not installed. Installing phakit..."
 fi
 
 
