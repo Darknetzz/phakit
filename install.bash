@@ -195,25 +195,15 @@ fi
 #                                    CONFIG                                    #
 # ──────────────────────────────────────────────────────────────────────────── #
 CONFIG_IMPORTED="0"
-if [ -z "$TEMP_PATH" ]; then
-    TEMP_PATH="/tmp/phakit"
-fi
-
-if [ -f "$TEMP_PATH/config" ]; then
-    source "$TEMP_PATH/config"
-else
-    print "No config file found. Fetching from GitHub..."
-    source <(curl -s "$GITHUB_CONFIGFILE")
-fi
+# Source config from GitHub
+GITHUB_CONFIGFILE_URL="https://raw.githubusercontent.com/Darknetzz/phakit/main/config"
+source <(curl -s "$GITHUB_CONFIGFILE")
 
 if [ "$CONFIG_IMPORTED" -ne "1" ]; then
-    quit 100 "Could not import config file."
+    quit 100 "Could not import config file from GitHub."
 else
     print "Config file imported." "SUCCESS"
 fi
-
-
-
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                          SECTION: CHECK DIRECTORIES                          #
