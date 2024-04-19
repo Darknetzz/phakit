@@ -117,6 +117,10 @@ TEMP_PATH="$HOME/.phakit"
 # ──────────────────────────────────────────────────────────────────────────── #
 #                          SECTION: CHECK DIRECTORIES                          #
 # ──────────────────────────────────────────────────────────────────────────── #
+
+# Set CWD to home directory
+cd "$HOME"
+
 # Remove $TEMP_PATH if it's already there
 if [ -d "$TEMP_PATH" ]; then
     print "Cleaning up previous installation files: $TEMP_PATH..."
@@ -124,7 +128,7 @@ if [ -d "$TEMP_PATH" ]; then
 else
     print "Creating temporary installation files path: $TEMP_PATH..."
 fi
-mkdir -p "$TEMP_PATH"
+# NOTE: $TEMP_PATH does not need to be created as git clone will do it for us
 
 # Check for existence of folders and create them
 if [ ! -d "$LINK_PATH" ]; then
@@ -180,9 +184,6 @@ print "Version $GITHUB_VERSION will be installed..."
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                SECTION GIT CLONE                             #
 # ──────────────────────────────────────────────────────────────────────────── #
-
-# Delete the current $TEMP_PATH
-rm -rf "$TEMP_PATH"
 
 # Clone the git repo to $TEMP_PATH
 git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
