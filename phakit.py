@@ -4,6 +4,7 @@
 #                                    IMPORTS                                   #
 # ──────────────────────────────────────────────────────────────────────────── #
 import os, sys, argparse, subprocess
+from rich import print
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   PRECHECKS                                  #
@@ -11,6 +12,44 @@ import os, sys, argparse, subprocess
 # Check Python version
 if sys.version_info < (3, 11):
     sys.exit("Python 3.11 or later is required.")
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                   FUNCTIONS                                  #
+# ──────────────────────────────────────────────────────────────────────────── #
+
+# ───────────────────────────── FUNCTION: rprint ───────────────────────────── #
+def rprint(text, type = "INFO"):
+    prefix = ""
+    color  = ""
+    type   = type.upper()
+    if type == "SUCCESS":
+        color  = "GREEN"
+    elif type == "ERROR" or type == "DANGER":
+        color  = "RED"
+    elif type == "WARNING":
+        color  = "ORANGE"
+    elif type == "INFO":
+        color  = "BLUE"
+    elif type == "PROMPT":
+        color  = "GREY"
+    print(f"[{type}] {text}", style=f"bold {color}")
+
+# ───────────────────────────── FUNCTION: prompt ───────────────────────────── #
+def prompt(text):
+    rprint(text, "prompt")
+    if input(f"{text} [Y/n]: ").lower() == 'n':
+        return False
+    return True
+
+# ────────────────────────────── FUNCTION: init ────────────────────────────── #
+def init(dir):
+    print("Initializing new project...")
+    if dir == None:
+        prompt(f'Project directory not specified. Initialize project in current directory {os.getcwd()}?')
+        dir = os.getcwd()
+    if dir != None and os.path.exists(dir):
+        print('Directory already exists. Please specify a directory that does not exist.')
+        sys.exit(1)
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                    CONFIG                                    #
@@ -29,19 +68,23 @@ def main():
         epilog='by @Darknetzz'
     )
 
+    # Flags
     parser.add_argument('-i', '--init', help='Initialize a new project', action='store_true')
-    parser.add_argument('-d', '--docs', help='Automatically create docs for your project', action='store_true')
+    parser.add_argument('--docs', help='Automatically create docs for your project', action='store_true')
     parser.add_argument('-v', '--version', help='Get current installed version of phakit', action='store_true')
-    parser.add_argument('--directory', help='The directory to use for this action', default=None)
-    args = parser.parse_args()
+    parser.add_argument('-u', '--update', help='Update phakit to the latest version', action='store_true')
 
-    i = args.init
-    d = args.docs
-    v = args.version
+    # Variables
+    parser.add_argument('-d', '--directory', help='The directory to use for this action', default=None)
 
+    # Save arguments
+    args      = parser.parse_args()
 
-    initDir = args.init
-    if args.init is not None:
+    if args.version is True:
+        while open("/etc/phakit/VERSION", "r") as v:
+            print("phakit version: " + v)
+            sys.exit(0)
+    if args.init is True:
         print("Initializing new project...")
         if os.path.exists(args.init):
             print('Directory already exists. Please specify a directory that does not exist.')

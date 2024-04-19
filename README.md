@@ -63,18 +63,37 @@ wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash |
 ```
 
 ### Option 2: Manually install
-For those who favors control over simplicity.
+For those who favors control over simplicity. This script is a minimalistic version of `install.bash`:
+**NOTE:** You must ensure that you have the required dependencies.
 ```bash
+GITHUB_REPO="https://github.com/Darknetzz/phakit.git"
 TEMP_PATH="$HOME/.phakit"
-DEST_PATH="/etc/phakit"
+LOCAL_PATH="/etc/phakit"
+LOCAL_LINK_PATH="/usr/local/bin"
+
+# Cleanup previous installation files
+if [ -d "$TEMP_PATH" ]; then
+    rm -rf "$TEMP_PATH"
+    mkdir "$TEMP_PATH"
+fi
 
 # Clone the git repo
-git clone https://github.com/Darknetzz/phakit.git phakit
+git clone "$GITHUB_REPO" "$TEMP_PATH"
 
-# Make sure the script files are executable
-chmod +x "$TEMP_PATH/install.bash"
-chmod +x "$TEMP_PATH/phakit"
-chmod +x "$TEMP_PATH/phakit.py"
+# Create LOCAL_PATH
+mkdir -p "$LOCAL_PATH"
+
+# Set LOCAL_PATH scripts to be executable
+find "$LOCAL_PATH" -type f -exec chmod +x {} \;
+
+# Set permissions for symlinks (should not be necessary, but just in case)
+chmod -R 775 "$LOCAL_PATH"
+chmod 775 "$LOCAL_LINK_PATH/phakit"
+chmod 775 "$LOCAL_LINK_PATH/phakit.py"
+
+# And make them executable
+chmod +x "$LOCAL_LINK_PATH/phakit"
+chmod +x "$LOCAL_LINK_PATH/phakit.py"
 
 # Remove old links (if they exist)
 rm /usr/local/bin/phakit
