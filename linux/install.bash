@@ -28,7 +28,7 @@ if [ -z "$INCLUDES_IMPORTED" ] || [ "$INCLUDES_IMPORTED" -ne "1" ]; then
     echo "Could not import includes file from GitHub ($GITHUB_INCLUDES_URL). Exiting..."
     exit 100
 else
-    print "Includes file imported." "SUCCESS"
+    print "Includes file imported from GitHub." "SUCCESS"
 fi
 # ───────────────────── !SECTION /GITHUB INCLUDES ──────────────────────────── #
 

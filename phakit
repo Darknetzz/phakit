@@ -1,18 +1,5 @@
 #!/bin/bash
 
-
-# ──────────────────────────── SECTION: PRECHECKS ──────────────────────────── #
-LOCAL_APP_PATH="/usr/local/bin"
-
-if [ ! -d "$LOCAL_APP_PATH" ]; then
-    echo "[ERROR] $LOCAL_APP_PATH does not exist. Exiting..."
-    exit 1
-fi
-# ──────────────────────────── !SECTION /PRECHECKS ─────────────────────────── #
-
-
-
-
 # ──────────────────────────────────────────────────────────────────────────── #
 #                              SECTION: LOCAL INCLUDES                         #
 # ──────────────────────────────────────────────────────────────────────────── #
