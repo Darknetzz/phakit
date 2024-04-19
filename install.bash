@@ -152,15 +152,12 @@ fi
 # - VAR: DEST_PATH (/etc/phakit) Destination (for phakit files): /etc/phakit
 # - VAR: LINK_PATH (/usr/local/bin): Link path for symlinks
 
-# LINK_PATH: Set link path (for symlinks)
-LINK_PATH="/usr/local/bin"
-
-# DEST_PATH: Set the destination path
-DEST_PATH="/etc/phakit"
-DEST_VERSION_FILE="$DEST_PATH/VERSION"
-
-# TEMP_PATH: Set the temporary path
-TEMP_PATH="$HOME/.phakit"
+if [ -f "config" ]; then
+    source "config"
+else
+    print "No config file found. Fetching from GitHub..."
+    bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/config)
+fi
 # ───────────────────────────── !SECTION /CONFIG ──────────────────────────── #
 
 
