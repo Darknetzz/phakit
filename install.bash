@@ -117,15 +117,20 @@ TEMP_PATH="$HOME/.phakit"
 # ──────────────────────────────────────────────────────────────────────────── #
 #                          SECTION: CHECK DIRECTORIES                          #
 # ──────────────────────────────────────────────────────────────────────────── #
+# Remove $TEMP_PATH if it's already there
+if [ -d "$TEMP_PATH" ]; then
+    print "Cleaning up previous installation files: $TEMP_PATH..."
+    rm -rf "$TEMP_PATH"
+else
+    print "Creating temporary installation files path: $TEMP_PATH..."
+fi
+mkdir -p "$TEMP_PATH"
+
 # Check for existence of folders and create them
 if [ ! -d "$LINK_PATH" ]; then
     print "$LINK_PATH does not exist. Exiting..." "ERROR"
     exit 1
 fi
-if [ ! -d "$TEMP_PATH" ]; then
-    mkdir -p "$TEMP_PATH"
-fi
-
 if [ ! -d "$DEST_PATH" ]; then
     mkdir -p "$DEST_PATH"
 fi
@@ -207,8 +212,6 @@ else
 fi
 # ───────────────────────────────── !SECTION ───────────────────────────────── #
 
-# Change directory to home folder
-# cd "$HOME"
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                               SECTION: Finalize                              #
