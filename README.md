@@ -52,7 +52,7 @@ It is specifically designed for PHP
 
 ```bash
 sudo su - # the installer must run as root!
-INSTALL_SCRIPT=https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/install.bash"
+INSTALL_SCRIPT="https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/install.bash"
 ```
 
 ### Option 1: Using the automated installer (recommended)
@@ -112,6 +112,7 @@ rm /usr/local/bin/phakit.py
 ln -s "$TEMP_PATH/phakit" /usr/local/bin/phakit
 ln -s "$TEMP_PATH/phakit.py" /usr/local/bin/phakit.py
 ```
+
 ## Windows
 
 ### Option 1: Using the automated installed (recommended)
@@ -134,12 +135,17 @@ Automatically create documentation for your project:
 # Uninstalling
 
 ## Linux
+```bash
+sudo su - # the uninstaller must run as root!
+UNINSTALL_SCRIPT="https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash"
+```
+
 * Using cURL:
 ```bash
-bash -s <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/uninstall.bash)
+bash -s <(curl -s "$UNINSTALL_SCRIPT")
 ```
 
 * Using wget:
 ```bash
-wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/uninstall.bash | sudo bash -s
+wget -O - "$UNINSTALL_SCRIPT" | sudo bash -s
 ```
