@@ -25,7 +25,9 @@ a PHP project manager written in Python.
 
 # Get started
 
-## Option 1: Using the automated installer (recommended)
+## Linux
+
+### Option 1: Using the automated installer (recommended)
 
 * Using cURL:
 ```bash
@@ -40,34 +42,32 @@ wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash |
 ## Option 2: Manually install
 For those who favors control over simplicity.
 ```bash
-CWD=$(pwd)
-PATH_SCRIPT_NAME="phakit"
-
-SOURCE_PATH_DIR="$CWD"
-SOURCE_VERSION_FILE="$SOURCE_PATH_DIR/VERSION"
-SOURCE_VERSION=$(cat $SOURCE_VERSION_FILE)
-
-DEST_PATH_DIR="/etc/phakit"
-DEST_VERSION_FILE="$DEST_PATH_DIR/VERSION"
-DEST_VERSION=$(cat $DEST_VERSION_FILE)
-
-# Change directory to home directory
-cd "$HOME"
+TEMP_PATH="$HOME/.phakit"
+DEST_PATH="/etc/phakit"
 
 # Clone the git repo
 git clone https://github.com/Darknetzz/phakit.git phakit
 
 # Make sure the script files are executable
-chmod +x "phakit/install.bash"
-chmod +x "phakit/phakit"
-chmod +x "phakit/phakit.py"
+chmod +x "$TEMP_PATH/install.bash"
+chmod +x "$TEMP_PATH/phakit"
+chmod +x "$TEMP_PATH/phakit.py"
 
-# Copy phakit to /etc
-cp -r phakit "$DEST_PATH_DIR"
+# Remove old links (if they exist)
+rm /usr/local/bin/phakit
+rm /usr/local/bin/phakit.py
 
 # Link `phakit` and the Python script to /usr/local/bin
 ln -s "$SOURCE_PATH_DIR/phakit" /usr/local/bin/phakit
 ln -s "$SOURCE_PATH_DIR/phakit.py" /usr/local/bin/phakit.py
+```
+## Windows
+
+### Option 1: Using the automated installed (recommended)
+
+*Coming soon*
+```powershell
+Invoke-Expression "& { $(Invoke-RestMethod https://raw.githubusercontent.com/Darknetzz/phakit/main/install.ps1) }"
 ```
 
 # Usage
