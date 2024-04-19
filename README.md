@@ -41,6 +41,8 @@ It is specifically designed for PHP
 
 # Requirements
 - [x] Python > 3.11
+    - [x] argparse
+    - [x] rich
 - [x] PHP > 8.3
 - [x] Webserver (Apache2/NGINX)
 
@@ -107,8 +109,8 @@ rm /usr/local/bin/phakit
 rm /usr/local/bin/phakit.py
 
 # Link `phakit` and the `phakit.py` script to /usr/local/bin
-ln -s "$SOURCE_PATH_DIR/phakit" /usr/local/bin/phakit
-ln -s "$SOURCE_PATH_DIR/phakit.py" /usr/local/bin/phakit.py
+ln -s "$TEMP_PATH/phakit" /usr/local/bin/phakit
+ln -s "$TEMP_PATH/phakit.py" /usr/local/bin/phakit.py
 ```
 ## Windows
 

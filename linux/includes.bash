@@ -248,44 +248,37 @@ GITHUB_FUNCTIONS_URL="$GITHUB_RAW_URL/linux/functions"
 # ──────────────────────────────────────────────────────────────────────────── #
 #                             SECTION: REQUIREMENTS                            #
 # ──────────────────────────────────────────────────────────────────────────── #
+
+# ────────────────────────────────── python ────────────────────────────────── #
 # Make sure Python exists
 if [ -z "$PYTHON" ]; then
-    echo "[REQUIREMENTS.BASH] Python 3 is not installed."
+    quit 150 "Python 3 is not installed."
     exit 1
 fi
 
 # Make sure Python can run
 if ! command -v "$PYTHON" &> /dev/null; then
-    echo "[REQUIREMENTS.BASH] Python 3 seems to be installed in $PYTHON, but returned an error. Exiting..."
+    quit 151 "Python 3 seems to be installed in $PYTHON, but returned an error. Exiting..."
     exit 1
 fi
 
+# ──────────────────────────────────── pip ─────────────────────────────────── #
 # Make sure pip is installed
 if [ -z "$PIP" ]; then
-    echo "[REQUIREMENTS.BASH] Pip is not installed."
+    quit 152 "Pip is not installed."
     exit 1
 fi
 
 # Make sure pip can run
 if ! command -v "$PIP" &> /dev/null; then
-    echo "[REQUIREMENTS.BASH] Pip was found at $PIP, but returned an error. Exiting..."
+    quit 153 "Pip was found at $PIP, but returned an error. Exiting..."
     exit 1
 fi
 
-# REVIEW: Fetch this from github for all scripts?
-# Check if pip packages are installed
-# REQUIRED_PYTHON_PACKAGES="$SOURCE_PATH_DIR/requirements"
-# if [ -f "$REQUIRED_PYTHON_PACKAGES" ]; then
-#     echo "Installing/verifying pip packages..."
-#     $PIP install -r "$REQUIRED_PYTHON_PACKAGES"
-# else
-#     echo "[REQUIREMENTS.BASH] $REQUIRED_PYTHON_PACKAGES not found in $SOURCE_PATH_DIR. Exiting..."
-#     exit 1
-# fi
-
+# ──────────────────────────────────── git ─────────────────────────────────── #
 # Check if git is installed
 if [ -z "$GIT" ]; then
-    echo "[REQUIREMENTS.BASH] Git is not installed."
+    print "Git is not installed."
     exit 1
 fi
 # ──────────────────────────────────────────────────────────────────────────── #
