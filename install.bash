@@ -65,7 +65,7 @@ DEST_VERSION_FILE="$DEST_PATH_DIR/VERSION"
 if [ -f "$DEST_VERSION_FILE" ]; then
     DEST_VERSION=$(cat "$DEST_VERSION_FILE")
 else
-    DEST_VERSION=0
+    DEST_VERSION="0"
 fi
 
 GITHUB_VERSION=$(curl -s https://api.github.com/repos/Darknetzz/phakit/releases/latest | grep tag_name | cut -d '"' -f 4)
@@ -74,47 +74,50 @@ echo "Starting installation..."
 
 # Check if phakit is already installed
 echo "Checking for existing version..."
-if [ "$DEST_VERSION" != 0 ]; then
+if [ "$DEST_VERSION" == "0" ]; then
+    echo "phakit not installed. Installing phakit..."
+else
     echo "Version $DEST_VERSION of phakit is already installed in $DEST_PATH_DIR."
     echo "Checking for updates..."
     if [ $GITHUB_VERSION == $DEST_VERSION ]; then
         echo "No new updates available."
         exit 0
     fi
-else
-    echo "phakit not installed. Installing phakit..."
 fi
 
 
 echo "New version available ($GITHUB_VERSION)! Updating..."
 
 # Check if the script is being run remotely
-if [[ $1 == "--remote" ]]; then
-    echo "Script is being run remotely."
-    echo "Changing directory to $TEMP_PATH..."
-    cd "$TEMP_PATH"
-    echo "Downloading requirements..."
-    wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements
-    echo "Downloading requirements.bash..."
-    wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements.bash
-else
-    echo "Script is being run locally."
-fi
+# if [[ $1 == "--remote" ]]; then
+#     echo "Script is being run remotely."
+#     echo "Changing directory to $TEMP_PATH..."
+#     cd "$TEMP_PATH"
+#     echo "Downloading requirements..."
+#     wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements
+#     echo "Downloading requirements.bash..."
+#     wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements.bash
+# else
+#     echo "Script is being run locally."
+# fi
+
+# Clone the git repo
+git clone https://github.com/Darknetzz/phakit.git "$SOURCE_PATH_DIR"
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                 REQUIREMENTS                                 #
 # ──────────────────────────────────────────────────────────────────────────── #
-REQUIREMENTS_SCRIPT="$CWD/requirements.bash"
-REQUIREMENTS_FILE="$CWD/requirements"
+REQUIREMENTS_SCRIPT="$SOURCE_PATH_DIR/requirements.bash"
+REQUIREMENTS_FILE="$SOURCE_PATH_DIR/requirements"
 
 if [ ! -f "$REQUIREMENTS_FILE" ]; then
-    echo "[ERROR] Requirements file not found in $CWD."
+    echo "[ERROR] Requirements file not found in $SOURCE_PATH_DIR."
     exit 1
 fi
 
 # Check if requirements.bash exists
 if [ ! -f "$REQUIREMENTS_SCRIPT" ]; then
-    echo "[ERROR] requirements.bash not found in $CWD. Are you running with '--remote' flag?"
+    echo "[ERROR] requirements.bash not found in $SOURCE_PATH_DIR. Are you running with '--remote' flag?"
     echo "You might need to install some packages manually."
 else
     echo "Requirements script found. Installing requirements..."
@@ -125,17 +128,21 @@ fi
 # Change directory to home folder
 # cd ~
 
-# Clone the git repo
-git clone https://github.com/Darknetzz/phakit.git phakit
-
 # Make sure the script files are executable
 chmod +x "$SOURCE_PATH_DIR/install.bash"
 chmod +x "$SOURCE_PATH_DIR/phakit"
 chmod +x "$SOURCE_PATH_DIR/phakit.py"
 
 # Copy phakit to /etc
-cp -r "$SOURCE_PATH_DIR" /etc
+cp -r "$SOURCE_PATH_DIR/*" /etc/phakit
+
+# Remove old links
+rm /usr/local/bin/phakit
+rm /usr/local/bin/phakit.py
 
 # Link `phakit` and the Python script to /usr/local/bin
 ln -s "$SOURCE_PATH_DIR/phakit" /usr/local/bin/phakit
 ln -s "$SOURCE_PATH_DIR/phakit.py" /usr/local/bin/phakit.py
+
+# Cleanup
+rm -r "$SOURCE_PATH_DIR"
