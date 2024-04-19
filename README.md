@@ -149,3 +149,26 @@ bash -s <(curl -s "$UNINSTALL_SCRIPT")
 ```bash
 wget -O - "$UNINSTALL_SCRIPT" | sudo bash -s
 ```
+
+# Troubleshooting
+## Exit code reference: 
+
+### < 50 - General
+0                  : Success
+1                  : Not running bash
+2                  : Not running as root
+3                  : Could not change directory to $HOME
+100                : Could not import config file
+
+### 16* - PRECHECKS
+* **160** - Please run the installer using bash.
+* **161** - Please run installer as root.
+* **162** - This script should not be run directly. Exiting...
+* **163** - $LOCAL_LINK_PATH does not exist. Exiting...
+
+### 17* - REQUIREMENT NOT SATISFIED
+* **170**: Python 3 is not installed.
+* **171**: Python 3 seems to be installed in $PYTHON, but returned an error.
+* **172**: Pip is not installed.
+* **173**: Pip was found at $PIP, but returned an error.
+* **174**: Git is not installed.

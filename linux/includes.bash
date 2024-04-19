@@ -227,23 +227,22 @@ check_update() {
 # ──────────────────────────────────────────────────────────────────────────── #
 # Check if we are running bash
 if [ -z "$BASH_VERSION" ]; then
-    quit 1 "[includes.bash] Please run the installer using bash."
+    quit 160 "Precheck failed: Please run the installer using bash."
 fi
 
 # Make sure we have sudo access
 if [ "$EUID" -ne 0 ]; then
-    quit 2 "[includes.bash] Please run installer as root."
+    quit 161 "Precheck failed: Please run installer as root."
 fi
 
 # Check if this script is invoked by the installer script
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    quit 3 "[includes.bash] This script should not be run directly. Exiting..."
+    quit 162 "Precheck failed: This script should not be run directly. Exiting..."
 fi
 
 # Check if we have /usr/local/bin
 if [ ! -d "$LOCAL_LINK_PATH" ]; then
-    echo "[ERROR] $LOCAL_LINK_PATH does not exist. Exiting..."
-    exit 1
+    quit 163 "Precheck failed: $LOCAL_LINK_PATH does not exist. Exiting..."
 fi
 # ──────────────────────────────────────────────────────────────────────────── #
 #                             !SECTION: /PRECHECKS                             #
@@ -273,34 +272,29 @@ fi
 # ────────────────────────────────── python ────────────────────────────────── #
 # Make sure Python exists
 if [ -z "$PYTHON" ]; then
-    quit 150 "Python 3 is not installed."
-    exit 1
+    quit 170 "Requirement not satisfied: Python 3 is not installed."
 fi
 
 # Make sure Python can run
 if ! command -v "$PYTHON" &> /dev/null; then
-    quit 151 "Python 3 seems to be installed in $PYTHON, but returned an error. Exiting..."
-    exit 1
+    quit 171 "Requirement not satisfied: Python 3 seems to be installed in $PYTHON, but returned an error."
 fi
 
 # ──────────────────────────────────── pip ─────────────────────────────────── #
 # Make sure pip is installed
 if [ -z "$PIP" ]; then
-    quit 152 "Pip is not installed."
-    exit 1
+    quit 172 "Requirement not satisfied: Pip is not installed."
 fi
 
 # Make sure pip can run
 if ! command -v "$PIP" &> /dev/null; then
-    quit 153 "Pip was found at $PIP, but returned an error. Exiting..."
-    exit 1
+    quit 173 "Requirement not satisfied: Pip was found at $PIP, but returned an error."
 fi
 
 # ──────────────────────────────────── git ─────────────────────────────────── #
 # Check if git is installed
 if [ -z "$GIT" ]; then
-    print "Git is not installed."
-    exit 1
+    quit 174 "Requirement not satisfied: Git is not installed."
 fi
 # ──────────────────────────────────────────────────────────────────────────── #
 #                            !SECTION                                          #

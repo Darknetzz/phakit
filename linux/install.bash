@@ -7,15 +7,6 @@
 #
 # ──────────────────────────────────────────────────────────────────────────── #
 
-# Exit code reference: 
-# 0                  : Success
-# 1                  : Not running bash
-# 2                  : Not running as root
-# 3                  : Could not change directory to $HOME
-# 4                  : $LOCAL_LINK_PATH does not exist
-# 5                  : Requirements file not found in $TEMP_PATH
-# 100                : Could not import config file
-
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                   SECTION: GITHUB INCLUDES                                   #
@@ -48,11 +39,6 @@ print "CWD: $(pwd)" "SUCCESS"
 # Clean up previous installation files if they are present
 if [ -d "$TEMP_PATH" ]; then
     cleanup
-fi
-
-# Check for existence of LINK_PATH
-if [ ! -d "$LOCAL_LINK_PATH" ]; then
-    quit 4 "Symbolic link folder $LOCAL_LINK_PATH does not exist."
 fi
 
 # Check for existence of LOCAL_PATH and create if not exists
