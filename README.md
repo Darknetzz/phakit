@@ -45,7 +45,7 @@ DEST_VERSION_FILE="$DEST_PATH_DIR/VERSION"
 DEST_VERSION=$(cat $DEST_VERSION_FILE)
 
 # Change directory to home directory
-cd ~
+cd "$HOME"
 
 # Clone the git repo
 git clone https://github.com/Darknetzz/phakit.git phakit

@@ -115,7 +115,7 @@ chmod +x "$SOURCE_PATH_DIR/phakit"
 chmod +x "$SOURCE_PATH_DIR/phakit.py"
 
 # Copy phakit to /etc
-cp -r "$SOURCE_PATH_DIR/*" /etc/phakit
+cp -r "$SOURCE_PATH_DIR/" "$DEST_PATH_DIR"
 
 # Remove old links
 rm /usr/local/bin/phakit
