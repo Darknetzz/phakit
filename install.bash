@@ -27,9 +27,9 @@ prompt() {
     echo    # move to a new line
     if [[ ! $REPLY =~ ^[Yy]$ ]]
     then
-        return false
+        return 1
     fi
-    return true
+    return 0
 }
 
 # FUNCTION: set_permissions
