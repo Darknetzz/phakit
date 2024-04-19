@@ -96,9 +96,9 @@ fi
 #                           SECTION: CONFIG                                    #
 # ──────────────────────────────────────────────────────────────────────────── #
 # REVIEW: What folder should we use?
-
-# Store current folder for later
-CWD=$(pwd)
+# - VAR: TEMP_PATH ("/root/.phakit"): Temporary dir for installation files 
+# - VAR: DEST_PATH (/etc/phakit) Destination (for phakit files): /etc/phakit
+# - VAR: LINK_PATH (/usr/local/bin): Link path for symlinks
 
 # LINK_PATH: Set link path (for symlinks)
 LINK_PATH="/usr/local/bin"
@@ -118,7 +118,7 @@ TEMP_PATH="$HOME/.phakit"
 #                          SECTION: CHECK DIRECTORIES                          #
 # ──────────────────────────────────────────────────────────────────────────── #
 
-# Set CWD to home directory
+# CD to home directory
 cd "$HOME"
 
 # Clean up previous installation files if they are present
