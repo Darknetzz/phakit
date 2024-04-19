@@ -7,6 +7,24 @@
 #
 # ──────────────────────────────────────────────────────────────────────────── #
 
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                   FUNCTIONS                                  #
+# ──────────────────────────────────────────────────────────────────────────── #
+update_symlinks() {
+    local $DEST_PATH=$1
+
+    echo "Updating symlinks..."
+
+    # Remove old links
+    rm /usr/local/bin/phakit
+    rm /usr/local/bin/phakit.py
+
+    # Link `phakit` and the Python script to /usr/local/bin
+    ln -s "$DEST_PATH/phakit" /usr/local/bin/phakit
+    ln -s "$DEST_PATH/phakit.py" /usr/local/bin/phakit.py
+
+    echo "Done!"
+}
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   PRECHECKS                                  #
@@ -39,12 +57,9 @@ if [ ! -d "$TEMP_PATH" ]; then
 fi
 cd "$TEMP_PATH"
 
-# Set the source path
-SOURCE_PATH_DIR="$TEMP_PATH"
-
 # Set the destination path
-DEST_PATH_DIR="/etc/phakit"
-DEST_VERSION_FILE="$DEST_PATH_DIR/VERSION"
+DEST_PATH="/etc/phakit"
+DEST_VERSION_FILE="$DEST_PATH/VERSION"
 if [ -f "$DEST_VERSION_FILE" ]; then
     DEST_VERSION=$(cat "$DEST_VERSION_FILE")
 else
@@ -58,10 +73,11 @@ echo "Checking for existing version..."
 if [ "$DEST_VERSION" == "0" ]; then
     echo "phakit not installed. Installing phakit..."
 else
-    echo "Version $DEST_VERSION of phakit is already installed in $DEST_PATH_DIR."
+    echo "Version $DEST_VERSION of phakit is already installed in $DEST_PATH."
     echo "Checking for updates..."
     if [ $GITHUB_VERSION == $DEST_VERSION ]; then
-        echo "No new updates available."
+        echo "No new updates available. Version $DEST_VERSION is up to date."
+        update_symlinks "$DEST_PATH"
         exit 0
     fi
 fi
@@ -70,22 +86,22 @@ fi
 echo "New version available ($GITHUB_VERSION)! Updating..."
 
 # Clone the git repo
-git clone https://github.com/Darknetzz/phakit.git "$SOURCE_PATH_DIR"
+git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                 REQUIREMENTS                                 #
 # ──────────────────────────────────────────────────────────────────────────── #
-REQUIREMENTS_SCRIPT="$SOURCE_PATH_DIR/requirements.bash"
-REQUIREMENTS_FILE="$SOURCE_PATH_DIR/requirements"
+REQUIREMENTS_SCRIPT="$TEMP_PATH/requirements.bash"
+REQUIREMENTS_FILE="$TEMP_PATH/requirements"
 
 if [ ! -f "$REQUIREMENTS_FILE" ]; then
-    echo "[ERROR] Requirements file not found in $SOURCE_PATH_DIR."
+    echo "[ERROR] Requirements file not found in $TEMP_PATH."
     exit 1
 fi
 
 # Check if requirements.bash exists
 if [ ! -f "$REQUIREMENTS_SCRIPT" ]; then
-    echo "[ERROR] requirements.bash not found in $SOURCE_PATH_DIR. Are you running with '--remote' flag?"
+    echo "[ERROR] requirements.bash not found in $TEMP_PATH. Are you running with '--remote' flag?"
     echo "You might need to install some packages manually."
 else
     echo "Requirements script found. Installing requirements..."
@@ -97,20 +113,15 @@ fi
 # cd "$HOME"
 
 # Make sure the script files are executable
-chmod +x "$SOURCE_PATH_DIR/install.bash"
-chmod +x "$SOURCE_PATH_DIR/phakit"
-chmod +x "$SOURCE_PATH_DIR/phakit.py"
+chmod +x "$TEMP_PATH/install.bash"
+chmod +x "$TEMP_PATH/phakit"
+chmod +x "$TEMP_PATH/phakit.py"
 
 # Copy phakit to /etc
-cp -r "$SOURCE_PATH_DIR" "$DEST_PATH_DIR"
-
-# Remove old links
-rm /usr/local/bin/phakit
-rm /usr/local/bin/phakit.py
+cp -r "$TEMP_PATH" "$DEST_PATH"
 
 # Link `phakit` and the Python script to /usr/local/bin
-ln -s "$SOURCE_PATH_DIR/phakit" /usr/local/bin/phakit
-ln -s "$SOURCE_PATH_DIR/phakit.py" /usr/local/bin/phakit.py
+update_symlinks "$DEST_PATH"
 
 # Cleanup
-rm -r "$SOURCE_PATH_DIR"
+rm -r "$TEMP_PATH"

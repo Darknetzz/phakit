@@ -29,7 +29,7 @@ a PHP project manager written in Python.
 
 * Using cURL:
 ```bash
-curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | sudo bash # -s -- --remote
+bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash)
 ```
 
 * Using wget:
