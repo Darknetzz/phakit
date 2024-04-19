@@ -82,6 +82,7 @@ print() {
         "WARNING") COLOR=$YELLOW;;
         "INFO") COLOR=$BLUE;;
         "PROMPT") COLOR=$PURPLE;;
+        *) COLOR=$NC;;
     esac
 
     # Print message
@@ -95,8 +96,7 @@ prompt() {
     print "$PROMPT" "PROMPT"
     read -p "Continue? (y/N) " -n 1 -r
     echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]
-    then
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         return 1
     fi
     return 0
