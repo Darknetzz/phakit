@@ -42,7 +42,7 @@ print() {
     esac
 
     # Print message
-    echo -e "${COLOR}[$PREPEND]${NC} $PRINT\n"
+    echo -e "${COLOR}[$PREPEND]${NC} $PRINT"
 }
 
 # FUNCTION: prompt_user
