@@ -23,9 +23,12 @@ fi
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                    CONFIG                                    #
 # ──────────────────────────────────────────────────────────────────────────── #
-TEMP_PATH="$HOME/.phakit"
-DEST_PATH="/etc/phakit"
-LINK_PATH="/usr/local/bin"
+if [ -f "config" ]; then
+    source "config"
+else
+    print "No config file found. Fetching from GitHub..."
+    bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/config)
+fi
 
 if [ ! -d "$DEST_PATH" ]; then
     echo "[WARNING] phakit does not seem to be installed. Will attempt to continue uninstallation..."

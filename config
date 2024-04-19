@@ -4,6 +4,10 @@
 
 # NOTE: This is not in use yet
 
+# - VAR: TEMP_PATH ("/root/.phakit"): Temporary dir for installation files 
+# - VAR: DEST_PATH (/etc/phakit) Destination (for phakit files): /etc/phakit
+# - VAR: LINK_PATH (/usr/local/bin): Link path for symlinks
+
 # LINK_PATH: Set link path (for symlinks)
 LINK_PATH="/usr/local/bin"
 

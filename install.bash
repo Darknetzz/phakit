@@ -147,11 +147,6 @@ fi
 # ──────────────────────────────────────────────────────────────────────────── #
 #                           SECTION: CONFIG                                    #
 # ──────────────────────────────────────────────────────────────────────────── #
-# REVIEW: What folder should we use?
-# - VAR: TEMP_PATH ("/root/.phakit"): Temporary dir for installation files 
-# - VAR: DEST_PATH (/etc/phakit) Destination (for phakit files): /etc/phakit
-# - VAR: LINK_PATH (/usr/local/bin): Link path for symlinks
-
 if [ -f "config" ]; then
     source "config"
 else
