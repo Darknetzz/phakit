@@ -155,8 +155,9 @@ else
 fi
 
 if [ "$CONFIG_IMPORTED" -ne "1" ]; then
-    echo "Could not import config file."
-    exit 100 
+    exit 100 "Could not import config file."
+else
+    print "Config file imported." "SUCCESS"
 fi
 
 
@@ -252,7 +253,7 @@ fi
 
 # Check if requirements.bash exists
 if [ ! -f "$REQUIREMENTS_SCRIPT" ]; then
-    print "requirements.bash not found in $TEMP_PATH. You might need to install some packages manually. Attempting to continue..." "ERROR"
+    print "Requirements script not found in $TEMP_PATH. You might need to install some packages manually. Attempting to continue..." "ERROR"
 else
     print "Requirements script found: $REQUIREMENTS_SCRIPT. Installing requirements..."
     source "$REQUIREMENTS_SCRIPT"

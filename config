@@ -4,6 +4,13 @@
 
 # NOTE: This is not in use yet
 
+# Find Python and pip
+PYTHON3=$(which python3)
+PYTHON="$PYTHON3"
+PIP3=$(which pip3)
+PIP="$PIP3"
+GIT=$(which git)
+
 # - VAR: TEMP_PATH ("/root/.phakit"): Temporary dir for installation files 
 # - VAR: DEST_PATH (/etc/phakit) Destination (for phakit files): /etc/phakit
 # - VAR: LINK_PATH (/usr/local/bin): Link path for symlinks
