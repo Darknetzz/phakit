@@ -51,31 +51,9 @@ fi
 
 
 # ──────────────────────────────────────────────────────────────────────────── #
-#                       SECTION: Check installed version                       #
+#                       SECTION: INSTALL                                       #
 # ──────────────────────────────────────────────────────────────────────────── #
-# Save installed version to variable
-
-# Check if phakit is already installed
-print "Checking for existing version of phakit..."
-
-check_installed
-# ───────────────────────────────── !SECTION ───────────────────────────────── #
-
-
-
-# ──────────────────────────────────────────────────────────────────────────── #
-#                                SECTION GIT CLONE                             #
-# ──────────────────────────────────────────────────────────────────────────── #
-
-# NOTE: $TEMP_PATH does not need to be created as git clone will do it for us
-# EDIT: We could probably just create it anyway
-mkdir -p "$TEMP_PATH"
-
-# Clone the git repo to $TEMP_PATH
-git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
-# ───────────────────────────────── !SECTION ───────────────────────────────── #
-
-
+install_update
 
 
 
@@ -85,8 +63,6 @@ git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
 # ──────────────────────────────────────────────────────────────────────────── #
 #                               SECTION: Finalize                              #
 # ──────────────────────────────────────────────────────────────────────────── #
-# Copy phakit to /etc
-cp -r "$TEMP_PATH" "$LOCAL_PATH"
 
 # Link `phakit` and the Python script to /usr/local/bin
 update_symlinks

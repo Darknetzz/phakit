@@ -160,6 +160,7 @@ wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstal
 
 ### 10-19: Install
 * **10** - Could not change directory to $HOME.
+* **11** - GITHUB_LATEST_VERSION is empty. Something is wrong here.
 
 ### 40-49: Update
 * **101** - Unable to update phakit. Unable to read LOCAL_VERSION (empty). Check permissions.

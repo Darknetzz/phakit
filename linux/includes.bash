@@ -176,54 +176,70 @@ quit() {
 }
 
 # ──────────────────────── FUNCTION: check_installed ─ ─────────────────────── #
-check_installed() {
-    # Check if LOCAL_VERSION is set
-    if [ -n "$LOCAL_VERSION" ] && [ "$LOCAL_VERSION" != "0" ] && [ -d "$LOCAL_PATH" ]; then
-        print "phakit $LOCAL_VERSION is already installed"
-        check_update
-        return
-    else
-        print "phakit is not installed"
-        LOCAL_VERSION="0"
+# check_installed() {
+#     # Check if LOCAL_VERSION is set
+#     if [ -n "$LOCAL_VERSION" ] && [ "$LOCAL_VERSION" != "0" ] && [ -d "$LOCAL_PATH" ]; then
+#         print "phakit $LOCAL_VERSION is already installed"
+#         check_update
+#         return
+#     else
+#         print "phakit is not installed"
+#         LOCAL_VERSION="0"
 
-        # Check if LOCAL_VERSION_FILE exists
-        if [ -f "$LOCAL_VERSION_FILE" ]; then
-            print "LOCAL_VERSION is not set, but $LOCAL_VERSION_FILE exists. Reading version from file..."
-            LOCAL_VERSION="$(cat "$LOCAL_VERSION_FILE")"
-        fi
-    fi
+#         # Check if LOCAL_VERSION_FILE exists
+#         if [ -f "$LOCAL_VERSION_FILE" ]; then
+#             print "LOCAL_VERSION is not set, but $LOCAL_VERSION_FILE exists. Reading version from file..."
+#             LOCAL_VERSION="$(cat "$LOCAL_VERSION_FILE")"
+#         fi
+#     fi
 
-    if [ -z "$LOCAL_VERSION" ]; then
-        quit 101 "Unable to update phakit. Unable to read LOCAL_VERSION (empty). Check permissions."
-    fi
+#     if [ -z "$LOCAL_VERSION" ]; then
+#         quit 101 "Unable to update phakit. Unable to read LOCAL_VERSION (empty). Check permissions."
+#     fi
 
-    check_update
-}
+#     check_update
+# }
 
-# ─────────────────────────── FUNCTION check_update ────────────────────────── #
-check_update() {
-    # Check if LOCAL_VERSION and GIT_VERSION are empty
+# ─────────────────────────── FUNCTION install_update ────────────────────────── #
+install_update() {
+
+    # Show latest version
     if [ -z "$GITHUB_LATEST_VERSION" ]; then
-        quit "GITHUB_LATEST_VERSION is empty. Something is wrong here." "ERROR"
+        quit 11 "GITHUB_LATEST_VERSION is empty. Something is wrong here." "ERROR"
+    fi
+    print "Latest version of phakit available: $GITHUB_LATEST_VERSION"
+
+
+    # Check if installed
+    if [ -z "$LOCAL_VERSION" ] || [ "$LOCAL_VERSION" == "0" ]; then
+        print "phakit is not installed"
+    else
+        print "Your version of phakit: $LOCAL_VERSION"
     fi
 
+    # Check there is a newer version
     if [ "$GITHUB_LATEST_VERSION" == "$LOCAL_VERSION" ]; then
         print "No new updates available. Your version of phakit ($LOCAL_VERSION) is up to date."
-
-        if prompt "Do you want to do reinstall phakit (this could help with broken links/permissions)?"; then
-            echo "Installing phakit $GITHUB_LATEST_VERSION..."
-        else
-            quit 0 "Installation cancelled."
-        fi
     else 
-        print "Latest version of phakit available: $GITHUB_LATEST_VERSION"
-        if prompt "Do you want to install it?"; then
-            echo "Installing phakit..."
-        else
-            quit 0 "Update cancelled."
-        fi
+        print "New update: $GITHUB_LATEST_VERSION" "SUCCESS"
     fi
+
+    # Prompt for installation regardless
+    if ! prompt "Do you want to do install the latest version from GitHub (this could help with broken links/permissions)?"; then
+        quit 0 "Update cancelled."
+    fi
+
+    # NOTE: $TEMP_PATH does not need to be created as git clone will do it for us
+    # EDIT: We could probably just create it anyway
+    mkdir -p "$TEMP_PATH"
+
+    # Clone the git repo to $TEMP_PATH
+    git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
+
+    # Copy phakit to /etc
+    cp -r "$TEMP_PATH" "$LOCAL_PATH"
 }
+
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                              !SECTION /FUNCTIONS                             #
