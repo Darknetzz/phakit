@@ -51,7 +51,7 @@ else
     DEST_VERSION="0"
 fi
 
-GITHUB_VERSION=$(wget -O https://raw.githubusercontent.com/Darknetzz/phakit/main/VERSION)
+GITHUB_VERSION=$(wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/VERSION)
 
 # Check if phakit is already installed
 echo "Checking for existing version..."
@@ -68,19 +68,6 @@ fi
 
 
 echo "New version available ($GITHUB_VERSION)! Updating..."
-
-# Check if the script is being run remotely
-# if [[ $1 == "--remote" ]]; then
-#     echo "Script is being run remotely."
-#     echo "Changing directory to $TEMP_PATH..."
-#     cd "$TEMP_PATH"
-#     echo "Downloading requirements..."
-#     wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements
-#     echo "Downloading requirements.bash..."
-#     wget https://raw.githubusercontent.com/Darknetzz/phakit/main/requirements.bash
-# else
-#     echo "Script is being run locally."
-# fi
 
 # Clone the git repo
 git clone https://github.com/Darknetzz/phakit.git "$SOURCE_PATH_DIR"
