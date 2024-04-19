@@ -1,22 +1,5 @@
 #!/bin/bash
 
-cat << EOF
-# ──────────────────────────────────────────────────────────────────────────────#
-#           dP                dP       oo   dP                                  #
-#           88                88            88                                  #
-#   88d888b. 88d888b. .d8888b. 88  .dP  dP d8888P                               #
-#   88'  `88 88'  `88 88'  `88 88888"   88   88                                 #
-#   88.  .88 88    88 88.  .88 88  `8b. 88   88                                 #
-#   88Y888P' dP    dP `88888P8 dP   `YP dP   dP                                 #
-#   88                                                                          #
-#   dP                                                                          #
-# ───────────────────────────────────────────────────────────────────────────── #
-#                 a PHP project/packager tool for PHP projects                  #
-# ───────────────────────────────────────────────────────────────────────────── #
-#                          Made with ❤️ by @Darknetzz                          #
-# ───────────────────────────────────────────────────────────────────────────── #
-EOF
-
 # ────────────────────────────── INSTALL SCRIPT ────────────────────────────── #
 #
 #           This script will install/upgrade phakit and it's dependencies.
@@ -50,7 +33,7 @@ fi
 CWD=$(pwd)
 
 # Set the temporary path and change directory
-TEMP_PATH="~/.phakit"
+TEMP_PATH="$HOME/.phakit"
 if [ ! -d "$TEMP_PATH" ]; then
     mkdir -p "$TEMP_PATH"
 fi
@@ -124,7 +107,7 @@ fi
 
 
 # Change directory to home folder
-# cd ~
+# cd "$HOME"
 
 # Make sure the script files are executable
 chmod +x "$SOURCE_PATH_DIR/install.bash"
