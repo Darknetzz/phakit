@@ -55,12 +55,12 @@ if ! command -v "$PIP" &> /dev/null; then
 fi
 
 # Check if pip packages are installed
-REQUIRED_PYTHON_PACKAGES="requirements"
+REQUIRED_PYTHON_PACKAGES="$SOURCE_PATH_DIR/requirements"
 if [ -f "$REQUIRED_PYTHON_PACKAGES" ]; then
     echo "Installing/verifying pip packages..."
     $PIP install -r "$REQUIRED_PYTHON_PACKAGES"
 else
-    echo "[ERROR] $REQUIRED_PYTHON_PACKAGES not found. Exiting..."
+    echo "[ERROR] $REQUIRED_PYTHON_PACKAGES not found in $SOURCE_PATH_DIR. Exiting..."
     exit 1
 fi
 

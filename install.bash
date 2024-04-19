@@ -68,9 +68,7 @@ else
     DEST_VERSION="0"
 fi
 
-GITHUB_VERSION=$(curl -s https://api.github.com/repos/Darknetzz/phakit/releases/latest | grep tag_name | cut -d '"' -f 4)
-
-echo "Starting installation..."
+GITHUB_VERSION=$(wget -O https://raw.githubusercontent.com/Darknetzz/phakit/main/VERSION)
 
 # Check if phakit is already installed
 echo "Checking for existing version..."
