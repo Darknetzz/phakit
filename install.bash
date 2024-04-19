@@ -10,9 +10,16 @@
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   FUNCTIONS                                  #
 # ──────────────────────────────────────────────────────────────────────────── #
+print() {
+    local PRINT="$1"
+    local TYPE=${2:-"INFO"}
+    PREPEND="${TYPE^^}"
+    echo -e "\n[$PREPEND] $PRINT"
+}
+
 set_permissions() {
 
-    echo "Setting permissions..."
+    print "Setting permissions..."
 
     # Set permissions for the destination folder
     chmod -R 775 "$DEST_PATH"
@@ -28,11 +35,11 @@ set_permissions() {
     chmod +x "$LINK_PATH/phakit"
     chmod +x "$LINK_PATH/phakit.py"
 
-    echo "Permissions set!"
+    print "Permissions set!"
 }
 
 update_symlinks() {
-    echo "Updating symlinks..."
+    print "Updating symlinks..."
 
     # Remove old links
     rm "$LINK_PATH/phakit"
@@ -42,7 +49,7 @@ update_symlinks() {
     ln -s "$DEST_PATH/phakit" "$LINK_PATH/phakit"
     ln -s "$DEST_PATH/phakit.py" "$LINK_PATH/phakit.py"
 
-    echo "Updated symlinks!"
+    print "Updated symlinks!"
 }
 
 # ──────────────────────────────────────────────────────────────────────────── #
@@ -50,13 +57,13 @@ update_symlinks() {
 # ──────────────────────────────────────────────────────────────────────────── #
 # Check if we are running bash
 if [ -z "$BASH_VERSION" ]; then
-    echo "[ERROR] Please run the installer using bash."
+    print "Please run the installer using bash." "ERROR"
     exit 1
 fi
 
 # Make sure we have sudo access
 if [ "$EUID" -ne 0 ]; then
-    echo "[ERROR] Please run installer as root."
+    print "Please run installer as root." "ERROR"
     exit 1
 fi
 
