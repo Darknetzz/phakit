@@ -151,7 +151,7 @@ if [ -f "config" ]; then
     source "config"
 else
     print "No config file found. Fetching from GitHub..."
-    source <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/config)
+    source <(curl -s "$GITHUB_CONFIGFILE")
 fi
 
 if [ "$CONFIG_IMPORTED" -ne "1" ]; then
@@ -201,8 +201,6 @@ else
     DEST_VERSION="0"
 fi
 
-GITHUB_VERSION=$(wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/VERSION)
-
 # Check if phakit is already installed
 print "Checking for existing version..."
 if [ "$DEST_VERSION" == "0" ]; then
@@ -210,7 +208,7 @@ if [ "$DEST_VERSION" == "0" ]; then
 else
     print "Version $DEST_VERSION is already installed in $DEST_PATH."
     print "Checking for updates..."
-    if [ "$GITHUB_VERSION" == "$DEST_VERSION" ]; then
+    if [ "$GITHUB_LATEST_VERSION" == "$DEST_VERSION" ]; then
         print "No new updates available. Version $DEST_VERSION is up to date."       
         if prompt "Do you want to do reinstall phakit (this could help with broken links/permissions)?"; then
             echo "Reinstalling phakit..."
@@ -221,7 +219,7 @@ else
     fi
 fi
 
-print "Version $GITHUB_VERSION will be installed..."
+print "Version $GITHUB_LATEST_VERSION will be installed..."
 # ───────────────────────────────── !SECTION ───────────────────────────────── #
 
 

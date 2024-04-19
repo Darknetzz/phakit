@@ -9,7 +9,7 @@
 # ──────────────────────────────────────────────────────────────────────────── #
 
 # Check if this script is invoked by the installer script
-if [ -z "$INSTALLER" ]; then
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     echo "[REQUIREMENTS.BASH] This script should not be run directly. Please run the installer script."
     exit 1
 fi

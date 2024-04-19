@@ -7,7 +7,7 @@ CONFIG_IMPORTED="0"
 if [ -f "config" ]; then
     source "config"
 else
-    print "No config file found. Fetching from GitHub..."
+    print "No config file found. Fetching latest from GitHub..."
     source <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/config)
 fi
 
