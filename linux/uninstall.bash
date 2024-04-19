@@ -30,7 +30,6 @@ fi
 
 # Prompt the user for verification
 read -p "Are you sure you want to uninstall phakit? (y/N) " -n 1 -r
-echo    # move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
     quit 0 "Uninstallation cancelled."
