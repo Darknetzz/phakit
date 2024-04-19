@@ -48,25 +48,29 @@ It is specifically designed for PHP
 
 ## Linux
 
+```bash
+sudo su - # the installer must run as root!
+INSTALL_SCRIPT=https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/install.bash"
+```
+
 ### Option 1: Using the automated installer (recommended)
 
 #### Using cURL:
 ```bash
-sudo su - # the installer must run as root!
-bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash)
+bash <(curl -s "$INSTALL_SCRIPT")
 ```
 
 #### Using wget:
 ```bash
-sudo su - # the installer must run as root!
-wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | bash
+wget -O - "$INSTALL_SCRIPT" | bash
 ```
 
 ### Option 2: Manually install
 For those who favors control over simplicity. This script is a minimalistic version of `install.bash`:
 **NOTE:** You must ensure that you have the required dependencies.
 ```bash
-GITHUB_REPO="https://github.com/Darknetzz/phakit.git"
+# Config
+GITHUB_REPO_URL="https://github.com/Darknetzz/phakit.git"
 TEMP_PATH="$HOME/.phakit"
 LOCAL_PATH="/etc/phakit"
 LOCAL_LINK_PATH="/usr/local/bin"
@@ -77,14 +81,17 @@ if [ -d "$TEMP_PATH" ]; then
     mkdir "$TEMP_PATH"
 fi
 
-# Clone the git repo
-git clone "$GITHUB_REPO" "$TEMP_PATH"
+# Clone the git repo to $TEMP_PATH
+git clone "$GITHUB_REPO_URL" "$TEMP_PATH"
 
 # Create LOCAL_PATH
 mkdir -p "$LOCAL_PATH"
 
+# Copy TEMP_PATH to LOCAL_PATH
+cp -r "$TEMP_PATH" "$LOCAL_PATH"
+
 # Set LOCAL_PATH scripts to be executable
-find "$LOCAL_PATH" -type f -exec chmod +x {} \;
+find "$LOCAL_PATH" -type d \( -name '.git' \) -prune -o -type f -exec chmod +x {} \;
 
 # Set permissions for symlinks (should not be necessary, but just in case)
 chmod -R 775 "$LOCAL_PATH"
@@ -99,7 +106,7 @@ chmod +x "$LOCAL_LINK_PATH/phakit.py"
 rm /usr/local/bin/phakit
 rm /usr/local/bin/phakit.py
 
-# Link `phakit` and the Python script to /usr/local/bin
+# Link `phakit` and the `phakit.py` script to /usr/local/bin
 ln -s "$SOURCE_PATH_DIR/phakit" /usr/local/bin/phakit
 ln -s "$SOURCE_PATH_DIR/phakit.py" /usr/local/bin/phakit.py
 ```
