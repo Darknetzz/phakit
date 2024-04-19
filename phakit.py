@@ -17,8 +17,8 @@ if sys.version_info < (3, 11):
 #                                   FUNCTIONS                                  #
 # ──────────────────────────────────────────────────────────────────────────── #
 
-# ───────────────────────────── FUNCTION: rprint ───────────────────────────── #
-def rprint(text, type = "INFO"):
+# ───────────────────────────── FUNCTION: printr ───────────────────────────── #
+def printr(text, type = "INFO"):
     prefix = ""
     color  = ""
     type   = type.upper()
@@ -36,14 +36,14 @@ def rprint(text, type = "INFO"):
 
 # ───────────────────────────── FUNCTION: prompt ───────────────────────────── #
 def prompt(text):
-    rprint(text, "prompt")
+    printr(text, "prompt")
     if input(f"{text} [Y/n]: ").lower() == 'n':
         return False
     return True
 
 # ────────────────────────────── FUNCTION: init ────────────────────────────── #
 def init(dir):
-    print("Initializing new project...")
+    printr("Initializing new project...")
     if dir == None:
         prompt(f'Project directory not specified. Initialize project in current directory {os.getcwd()}?')
         dir = os.getcwd()
@@ -82,12 +82,12 @@ def main():
 
     if args.version is True:
         while open("/etc/phakit/VERSION", "r") as v:
-            print("phakit version: " + v)
+            printr("phakit version: " + v)
             sys.exit(0)
     if args.init is True:
-        print("Initializing new project...")
+        printr("Initializing new project...")
         if os.path.exists(args.init):
-            print('Directory already exists. Please specify a directory that does not exist.')
+            printr('Directory already exists. Please specify a directory that does not exist.')
             sys.exit(1)
 
     subprocess.run(['tar', '-czf', args.output, args.directory])
