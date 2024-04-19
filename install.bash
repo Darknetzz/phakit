@@ -51,19 +51,30 @@ fi
 # Store current folder for later
 CWD=$(pwd)
 
-# Set link path (for symlinks)
+# LINK_PATH: Set link path (for symlinks)
 LINK_PATH="/usr/local/bin"
 
-# Set the temporary path and change directory
+# DEST_PATH: Set the destination path
+DEST_PATH="/etc/phakit"
+DEST_VERSION_FILE="$DEST_PATH/VERSION"
+
+# TEMP_PATH: Set the temporary path
 TEMP_PATH="$HOME/.phakit"
+
+# Check for existence of folders and create them
+if [ ! -d "$LINK_PATH" ]; then
+    echo "[ERROR] $LINK_PATH does not exist. Exiting..."
+    exit 1
+fi
 if [ ! -d "$TEMP_PATH" ]; then
     mkdir -p "$TEMP_PATH"
 fi
-cd "$TEMP_PATH"
 
-# Set the destination path
-DEST_PATH="/etc/phakit"
-DEST_VERSION_FILE="$DEST_PATH/VERSION"
+if [ ! -d "$DEST_PATH" ]; then
+    mkdir -p "$DEST_PATH"
+fi
+
+# Save installed version to variable
 if [ -f "$DEST_VERSION_FILE" ]; then
     DEST_VERSION=$(cat "$DEST_VERSION_FILE")
 else
@@ -77,7 +88,7 @@ echo "Checking for existing version..."
 if [ "$DEST_VERSION" == "0" ]; then
     echo "phakit not installed. Installing phakit..."
 else
-    echo "Version $DEST_VERSION of phakit is already installed in $DEST_PATH."
+    echo "Version $DEST_VERSION is already installed in $DEST_PATH."
     echo "Checking for updates..."
     if [ $GITHUB_VERSION == $DEST_VERSION ]; then
         echo "No new updates available. Version $DEST_VERSION is up to date."
@@ -86,8 +97,7 @@ else
     fi
 fi
 
-
-echo "New version available ($GITHUB_VERSION)! Updating..."
+echo "Version $GITHUB_VERSION will be installed..."
 
 # Clone the git repo
 git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
