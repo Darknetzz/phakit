@@ -20,6 +20,12 @@ if [ -z "$CONFIG_IMPORTED" || "$CONFIG_IMPORTED" == "0" ]; then
     exit 1
 fi
 
+# Check if we have functions
+if [ -z "$FUNCTIONS_IMPORTED" || "$FUNCTIONS_IMPORTED" == "0" ]; then
+    echo "[REQUIREMENTS.BASH] Functions has not been imported. Exiting..."
+    exit 1
+fi
+
 # Make sure Python exists
 if [ -z "$PYTHON" ]; then
     echo "[REQUIREMENTS.BASH] Python 3 is not installed."
