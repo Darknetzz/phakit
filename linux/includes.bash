@@ -272,15 +272,16 @@ if ! command -v "$PIP" &> /dev/null; then
     exit 1
 fi
 
+# REVIEW: Fetch this from github for all scripts?
 # Check if pip packages are installed
-REQUIRED_PYTHON_PACKAGES="$SOURCE_PATH_DIR/requirements"
-if [ -f "$REQUIRED_PYTHON_PACKAGES" ]; then
-    echo "Installing/verifying pip packages..."
-    $PIP install -r "$REQUIRED_PYTHON_PACKAGES"
-else
-    echo "[REQUIREMENTS.BASH] $REQUIRED_PYTHON_PACKAGES not found in $SOURCE_PATH_DIR. Exiting..."
-    exit 1
-fi
+# REQUIRED_PYTHON_PACKAGES="$SOURCE_PATH_DIR/requirements"
+# if [ -f "$REQUIRED_PYTHON_PACKAGES" ]; then
+#     echo "Installing/verifying pip packages..."
+#     $PIP install -r "$REQUIRED_PYTHON_PACKAGES"
+# else
+#     echo "[REQUIREMENTS.BASH] $REQUIRED_PYTHON_PACKAGES not found in $SOURCE_PATH_DIR. Exiting..."
+#     exit 1
+# fi
 
 # Check if git is installed
 if [ -z "$GIT" ]; then
