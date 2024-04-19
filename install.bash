@@ -68,6 +68,23 @@ update_symlinks() {
 
     print "Updated symlinks!"
 }
+
+# FUNCTION: cleanup
+cleanup() {
+    print "Cleaning up previous installation files in $TEMP_PATH..."
+    rm -r "$TEMP_PATH"
+}
+
+# FUNCTION: quit
+quit() {
+    local EXIT_CODE=${1:-0}
+    if [ "$EXIT_CODE" -ne 0 ]; then
+        print "Installation failed!" "ERROR"
+    else
+        print "Installation complete!" "SUCCESS"
+    fi
+    exit "$EXIT_CODE"
+}
 # ──────────────────────────── !SECTION /FUNCTIONS ─────────────────────────── #
 
 
@@ -79,13 +96,13 @@ update_symlinks() {
 # Check if we are running bash
 if [ -z "$BASH_VERSION" ]; then
     print "Please run the installer using bash." "ERROR"
-    exit 1
+    quit 1
 fi
 
 # Make sure we have sudo access
 if [ "$EUID" -ne 0 ]; then
     print "Please run installer as root." "ERROR"
-    exit 1
+    quit 1
 fi
 # ────────────────────────── !SECTION /PRECHECKS ──────────────────────────── #
 
@@ -123,14 +140,13 @@ cd "$HOME"
 
 # Clean up previous installation files if they are present
 if [ -d "$TEMP_PATH" ]; then
-    print "Cleaning up previous installation files: $TEMP_PATH..."
-    rm -rf "$TEMP_PATH"
+    cleanup
 else
 
 # Check for existence of folders and create them
 if [ ! -d "$LINK_PATH" ]; then
     print "$LINK_PATH does not exist. Exiting..." "ERROR"
-    exit 1
+    quit 1
 fi
 if [ ! -d "$DEST_PATH" ]; then
     mkdir -p "$DEST_PATH"
@@ -174,7 +190,7 @@ else
         else
             update_symlinks
             set_permissions
-            exit 0
+            quit 0
         fi
     fi
 fi
@@ -207,7 +223,7 @@ REQUIREMENTS_FILE="$TEMP_PATH/requirements"
 
 if [ ! -f "$REQUIREMENTS_FILE" ]; then
     print "Requirements file not found in $TEMP_PATH." "ERROR"
-    exit 1
+    quit 1
 fi
 
 # Check if requirements.bash exists
@@ -234,5 +250,10 @@ update_symlinks
 set_permissions
 
 # Cleanup
+print "Cleaning up installation files..."
 rm -r "$TEMP_PATH"
+
+print "Installation complete!" "SUCCESS"
+quit 0
 # ───────────────────────────────── !SECTION ───────────────────────────────── #
+
