@@ -15,8 +15,40 @@
 print() {
     local PRINT="$1"
     local TYPE=${2:-"INFO"}
-    PREPEND="${TYPE^^}"
-    echo -e "\n[$PREPEND] $PRINT"
+    local PREPEND="${TYPE^^}"
+
+    # Define colors
+    local RED='\033[0;31m'
+    local GREEN='\033[0;32m'
+    local YELLOW='\033[1;33m'
+    local BLUE='\033[0;34m'
+    local NC='\033[0m' # No Color
+
+    # Choose color based on message type
+    local COLOR=$NC
+    case $TYPE in
+        "ERROR") COLOR=$RED;;
+        "SUCCESS") COLOR=$GREEN;;
+        "WARNING") COLOR=$YELLOW;;
+        "INFO") COLOR=$BLUE;;
+    esac
+
+    case "$PREPEND" in
+        "ERROR")
+            echo -e "\n[$PREPEND] $PRINT\n"
+            quit 1
+            ;;
+        "SUCCESS")
+            echo -e "\n[$PREPEND] $PRINT\n"
+            ;;
+        *)
+            echo -e "[$PREPEND] $PRINT"
+            ;;
+    esac
+
+    
+    # Print message
+    echo -e "${COLOR}[$PREPEND] $PRINT${NC}"
 }
 
 # FUNCTION: prompt_user
@@ -78,11 +110,21 @@ cleanup() {
 # FUNCTION: quit
 quit() {
     local EXIT_CODE=${1:-0}
+    local MESSAGE=${2}
+
     if [ "$EXIT_CODE" -ne 0 ]; then
-        print "Installation failed!" "ERROR"
+        local TYPE="ERROR"
+        if [ -z "$MESSAGE" ]; then
+            MESSAGE="Installation failed!"
+        fi
     else
-        print "Installation complete!" "SUCCESS"
+        local TYPE="SUCCESS"
+        if [ -z "$MESSAGE" ]; then
+            MESSAGE="Installation complete!"
+        fi
     fi
+
+    print "$MESSAGE" "$TYPE"
     exit "$EXIT_CODE"
 }
 # ──────────────────────────── !SECTION /FUNCTIONS ─────────────────────────── #
@@ -136,18 +178,21 @@ TEMP_PATH="$HOME/.phakit"
 # ──────────────────────────────────────────────────────────────────────────── #
 
 # CD to home directory
-cd "$HOME"
+print "Changing directory to $HOME..."
+cd "$HOME" || quit 1
 
 # Clean up previous installation files if they are present
 if [ -d "$TEMP_PATH" ]; then
     cleanup
-else
+fi
 
-# Check for existence of folders and create them
+# Check for existence of LINK_PATH, and quit if it does not exist
 if [ ! -d "$LINK_PATH" ]; then
     print "$LINK_PATH does not exist. Exiting..." "ERROR"
     quit 1
 fi
+
+# Check for existence of DEST_PATH and create them
 if [ ! -d "$DEST_PATH" ]; then
     mkdir -p "$DEST_PATH"
 fi
@@ -175,7 +220,7 @@ if [ "$DEST_VERSION" == "0" ]; then
 else
     print "Version $DEST_VERSION is already installed in $DEST_PATH."
     print "Checking for updates..."
-    if [ $GITHUB_VERSION == $DEST_VERSION ]; then
+    if [ "$GITHUB_VERSION" == "$DEST_VERSION" ]; then
         print "No new updates available. Version $DEST_VERSION is up to date."
 
         # Link `phakit` and the Python script to /usr/local/bin
