@@ -27,6 +27,9 @@ It is specifically designed for PHP
 - [ ] Automated installer scripts
     - [ ] Linux (install.bash)
     - [ ] Windows (install.ps1)
+- [ ] Automated uninstall scripts
+    - [ ] Linux (uninstall.bash)
+    - [ ] Windows (uninstall.ps1)
 - [ ] Create projects
 - [ ] Initialize git on project
 - [php-utils](https://github.com/Darknetzz/php-utils)
@@ -46,18 +49,17 @@ It is specifically designed for PHP
 ## Linux
 
 ### Option 1: Using the automated installer (recommended)
-
 * Using cURL:
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash)
+bash -s <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash)
 ```
 
 * Using wget:
 ```bash
-wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | sudo bash # -s -- --remote
+wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | sudo bash -s
 ```
 
-## Option 2: Manually install
+### Option 2: Manually install
 For those who favors control over simplicity.
 ```bash
 TEMP_PATH="$HOME/.phakit"
@@ -82,14 +84,12 @@ ln -s "$SOURCE_PATH_DIR/phakit.py" /usr/local/bin/phakit.py
 ## Windows
 
 ### Option 1: Using the automated installed (recommended)
-
 *Coming soon*
 ```powershell
 Invoke-Expression "& { $(Invoke-RestMethod https://raw.githubusercontent.com/Darknetzz/phakit/main/install.ps1) }"
 ```
 
 # Usage
-
 To initialize a new project, simply do this:
 ```bash
 ./phakit --init "[PROJECT_NAME]" --path "[PATH]"
@@ -98,4 +98,17 @@ To initialize a new project, simply do this:
 Automatically create documentation for your project:
 ```bash
 ./phpm --docs "[DOCS_FOLDER]"
+```
+
+# Uninstalling
+
+## Linux
+* Using cURL:
+```bash
+bash -s <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/uninstall.bash)
+```
+
+* Using wget:
+```bash
+wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/uninstall.bash | sudo bash -s
 ```
