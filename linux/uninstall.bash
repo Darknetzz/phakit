@@ -29,9 +29,7 @@ fi
 # ──────────────────────────────────────────────────────────────────────────── #
 
 # Prompt the user for verification
-read -p "Are you sure you want to uninstall phakit? (y/N) " -n 1 -r
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
+if promt "Are you sure you want to uninstall phakit? (y/N) "; then
     quit 0 "Uninstallation cancelled."
 fi
 
