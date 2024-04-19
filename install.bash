@@ -7,6 +7,14 @@
 #
 # ──────────────────────────────────────────────────────────────────────────── #
 
+# Exit code reference:
+# 0 - Success
+# 1 - Not running bash
+# 2 - Not running as root
+# 3 - Could not change directory to $HOME
+# 4 - $LINK_PATH does not exist
+# 5 - Requirements file not found in $TEMP_PATH
+
 # ──────────────────────────────────────────────────────────────────────────── #
 #                          SECTION: FUNCTIONS                                  #
 # ──────────────────────────────────────────────────────────────────────────── #
@@ -36,7 +44,6 @@ print() {
     case "$PREPEND" in
         "ERROR")
             echo -e "\n[$PREPEND] $PRINT\n"
-            quit 1
             ;;
         "SUCCESS")
             echo -e "\n[$PREPEND] $PRINT\n"
@@ -115,16 +122,17 @@ quit() {
     if [ "$EXIT_CODE" -ne 0 ]; then
         local TYPE="ERROR"
         if [ -z "$MESSAGE" ]; then
-            MESSAGE="Installation failed!"
+            MESSAGE="Installation not complete."
         fi
     else
         local TYPE="SUCCESS"
         if [ -z "$MESSAGE" ]; then
-            MESSAGE="Installation complete!"
+            MESSAGE="Installation complete."
         fi
     fi
 
     print "$MESSAGE" "$TYPE"
+    print "Exiting with code $EXIT_CODE..."
     exit "$EXIT_CODE"
 }
 # ──────────────────────────── !SECTION /FUNCTIONS ─────────────────────────── #
@@ -137,14 +145,12 @@ quit() {
 # ──────────────────────────────────────────────────────────────────────────── #
 # Check if we are running bash
 if [ -z "$BASH_VERSION" ]; then
-    print "Please run the installer using bash." "ERROR"
-    quit 1
+    quit 1 "Please run the installer using bash."
 fi
 
 # Make sure we have sudo access
 if [ "$EUID" -ne 0 ]; then
-    print "Please run installer as root." "ERROR"
-    quit 1
+    quit 2 "Please run installer as root."
 fi
 # ────────────────────────── !SECTION /PRECHECKS ──────────────────────────── #
 
@@ -179,7 +185,7 @@ TEMP_PATH="$HOME/.phakit"
 
 # CD to home directory
 print "Changing directory to $HOME..."
-cd "$HOME" || quit 1
+cd "$HOME" || quit 3 "Could not change directory to $HOME."
 
 # Clean up previous installation files if they are present
 if [ -d "$TEMP_PATH" ]; then
@@ -188,8 +194,7 @@ fi
 
 # Check for existence of LINK_PATH, and quit if it does not exist
 if [ ! -d "$LINK_PATH" ]; then
-    print "$LINK_PATH does not exist. Exiting..." "ERROR"
-    quit 1
+    quit 4 "$LINK_PATH does not exist."
 fi
 
 # Check for existence of DEST_PATH and create them
@@ -235,7 +240,7 @@ else
         else
             update_symlinks
             set_permissions
-            quit 0
+            quit 0 "Updated symlinks and permissions"
         fi
     fi
 fi
@@ -267,16 +272,14 @@ REQUIREMENTS_SCRIPT="$TEMP_PATH/requirements.bash"
 REQUIREMENTS_FILE="$TEMP_PATH/requirements"
 
 if [ ! -f "$REQUIREMENTS_FILE" ]; then
-    print "Requirements file not found in $TEMP_PATH." "ERROR"
-    quit 1
+    quit 5 "Requirements file not found in $TEMP_PATH."
 fi
 
 # Check if requirements.bash exists
 if [ ! -f "$REQUIREMENTS_SCRIPT" ]; then
-    print "requirements.bash not found in $TEMP_PATH." "ERROR"
-    print "You might need to install some packages manually."
+    print "requirements.bash not found in $TEMP_PATH. You might need to install some packages manually. Attempting to continue..." "ERROR"
 else
-    print "Requirements script found. Installing requirements..."
+    print "Requirements script found: $REQUIREMENTS_SCRIPT. Installing requirements..."
     source "$REQUIREMENTS_SCRIPT"
 fi
 # ───────────────────────────────── !SECTION ───────────────────────────────── #
@@ -295,10 +298,8 @@ update_symlinks
 set_permissions
 
 # Cleanup
-print "Cleaning up installation files..."
-rm -r "$TEMP_PATH"
+cleanup
 
-print "Installation complete!" "SUCCESS"
 quit 0
 # ───────────────────────────────── !SECTION ───────────────────────────────── #
 
