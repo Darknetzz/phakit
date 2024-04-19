@@ -35,7 +35,8 @@ GITHUB_REPO_PATH="Darknetzz/phakit"
 GITHUB_REPO_URL="https://github.com/$GITHUB_REPO_PATH"
 GITHUB_RAW_URL="https://raw.githubusercontent.com/$GITHUB_REPO_PATH/$GITHUB_BRANCH"
 GITHUB_VERSION_URL="$GITHUB_RAW_URL/VERSION"
-GITHUB_LATEST_VERSION=$(wget -O - "$GITHUB_VERSION_URL")
+# GITHUB_LATEST_VERSION=$(wget -O - "$GITHUB_VERSION_URL")
+GITHUB_LATEST_VERSION=$(curl -s "$GITHUB_VERSION_URL")
 GITHUB_REQUIREMENTSFILE="$GITHUB_RAW_URL/requirements"
 GITHUB_FUNCTIONS_URL="$GITHUB_RAW_URL/linux/functions"
 
@@ -239,9 +240,9 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     quit 3 "[includes.bash] This script should not be run directly. Exiting..."
 fi
 
-
-if [ ! -d "$LOCAL_APP_PATH" ]; then
-    echo "[ERROR] $LOCAL_APP_PATH does not exist. Exiting..."
+# Check if we have /usr/local/bin
+if [ ! -d "$LOCAL_LINK_PATH" ]; then
+    echo "[ERROR] $LOCAL_LINK_PATH does not exist. Exiting..."
     exit 1
 fi
 # ──────────────────────────────────────────────────────────────────────────── #

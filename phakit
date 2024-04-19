@@ -24,28 +24,6 @@ if ! command -v "$PYTHON3" &> /dev/null; then
     quit 101 "Python 3 is not installed."
 fi
 
-# REVIEW: Revies this conditional mess at some point...
-# Check if the script exists
-# in PATH
-if [ -f "$LOCAL_SCRIPT_PATH" ]; then
-    SCRIPT_BIN="$LOCAL_SCRIPT_PATH"
-else
-    echo "[WARNING] $LOCAL_SCRIPT_PATH does not exist in PATH. Running from $LOCAL_LINK_PATH..."
-    # as symlink
-    if [ -f "$LOCAL_LINK_PATH" ]; then
-        SCRIPT_BIN="$LOCAL_LINK_PATH"
-    else
-        echo "[WARNING] Symlinks not found in $LOCAL_LINK_PATH. Running from $LOCAL_PATH..."
-        # as destination
-        if [ -f "$LOCAL_PATH/$LOCAL_SCRIPT_PATH" ]; then
-            SCRIPT_BIN="$LOCAL_PATH"
-        else
-            echo "[ERROR] $LOCAL_PATH does not exist. Exiting..."
-            exit 1
-        fi
-    fi
-fi
-
 echo "[OK] Found phakit, running from $SCRIPT_BIN..."
 
 # Call the python script with all arguments passed to the bash script
