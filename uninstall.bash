@@ -49,9 +49,9 @@ then
 fi
 
 # Remove symlinks
-rm "$LINK_PATH/phakit"
-rm "$LINK_PATH/phakit.py"
+rm "$LOCAL_LINK_PATH/phakit"
+rm "$LOCAL_LINK_PATH/phakit.py"
 
 # Remove phakit and temp folder
-rm -rf "$DEST_PATH"
+rm -rf "$LOCAL_PATH"
 rm -rf "$TEMP_PATH"
