@@ -23,15 +23,17 @@ fi
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                    CONFIG                                    #
 # ──────────────────────────────────────────────────────────────────────────── #
+CONFIG_IMPORTED="0"
 if [ -f "config" ]; then
     source "config"
 else
     print "No config file found. Fetching from GitHub..."
-    bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/config)
+    source <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/config)
 fi
 
-if [ ! -d "$DEST_PATH" ]; then
-    echo "[WARNING] phakit does not seem to be installed. Will attempt to continue uninstallation..."
+if [ "$CONFIG_IMPORTED" -ne "1" ]; then
+    echo "Could not import config file."
+    exit 100
 fi
 
 # ──────────────────────────────────────────────────────────────────────────── #

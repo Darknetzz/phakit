@@ -1,9 +1,22 @@
 #!/bin/bash
 
-# Path to your python script
-SCRIPT_PATH="phakit.py"
-DEST_PATH="/etc/phakit.py"
-LINK_PATH="/usr/local/bin/phakit.py"
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                    CONFIG                                    #
+# ──────────────────────────────────────────────────────────────────────────── #
+CONFIG_IMPORTED="0"
+if [ -f "config" ]; then
+    source "config"
+else
+    print "No config file found. Fetching from GitHub..."
+    source <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/config)
+fi
+
+if [ "$CONFIG_IMPORTED" -ne "1" ]; then
+    echo "Could not import config file."
+    exit 100
+fi
+
+
 
 # Make sure Python exists
 if ! command -v python3 &> /dev/null; then
