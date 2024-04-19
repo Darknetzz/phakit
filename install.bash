@@ -179,7 +179,7 @@ fi
 
 # Check for existence of LINK_PATH, and quit if it does not exist
 if [ ! -d "$LINK_PATH" ]; then
-    quit 4 "$LINK_PATH does not exist."
+    quit 4 "Symbolic link in $LINK_PATH does not exist."
 fi
 
 # Check for existence of DEST_PATH and create them

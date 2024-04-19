@@ -15,7 +15,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 fi
 
 # Check if we have config
-if [ -z "$CONFIG_IMPORTED" ]; then
+if [ -z "$CONFIG_IMPORTED" || "$CONFIG_IMPORTED" == "0" ]; then
     echo "[REQUIREMENTS.BASH] Config has not been imported. Exiting..."
     exit 1
 fi
