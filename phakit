@@ -2,6 +2,7 @@
 
 # Path to your python script
 SCRIPT_PATH="phakit.py"
+DEST_PATH="/etc/phakit"
 
 # Make sure Python exists
 if ! command -v python3 &> /dev/null; then
@@ -20,7 +21,11 @@ done
 
 # Check if the script exists
 if [ ! -f "$SCRIPT_PATH" ]; then
-    echo "[ERROR] $SCRIPT_PATH does not exist. Make sure you have it in your PATH."
+    echo "[WARNING] $SCRIPT_PATH does not exist in PATH. Running from $DEST_PATH..."
+elif [ -f "$DEST_PATH/$SCRIPT_PATH" ]; then
+    SCRIPT_PATH="$DEST_PATH/$SCRIPT_PATH"
+else
+    echo "[ERROR] $DEST_PATH does not exist. Exiting..."
     exit 1
 fi
 

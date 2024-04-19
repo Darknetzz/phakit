@@ -11,17 +11,18 @@
 #                                   FUNCTIONS                                  #
 # ──────────────────────────────────────────────────────────────────────────── #
 update_symlinks() {
-    local $DEST_PATH=$1
+    local $DEST_PATH=${$1:-"/etc/phakit"}
+    local $LINK_PATH=${$2:-"/usr/local/bin"}
 
     echo "Updating symlinks..."
 
     # Remove old links
-    rm /usr/local/bin/phakit
-    rm /usr/local/bin/phakit.py
+    rm "$LINK_PATH/phakit"
+    rm "$LINK_PATH/phakit.py"
 
     # Link `phakit` and the Python script to /usr/local/bin
-    ln -s "$DEST_PATH/phakit" /usr/local/bin/phakit
-    ln -s "$DEST_PATH/phakit.py" /usr/local/bin/phakit.py
+    ln -s "$DEST_PATH/phakit" "$LINK_PATH/phakit"
+    ln -s "$DEST_PATH/phakit.py" "$LINK_PATH/phakit.py"
 
     echo "Done!"
 }
@@ -49,6 +50,9 @@ fi
 
 # Store current folder for later
 CWD=$(pwd)
+
+# Set link path (for symlinks)
+LINK_PATH="/usr/local/bin"
 
 # Set the temporary path and change directory
 TEMP_PATH="$HOME/.phakit"
@@ -112,16 +116,24 @@ fi
 # Change directory to home folder
 # cd "$HOME"
 
-# Make sure the script files are executable
-chmod +x "$TEMP_PATH/install.bash"
-chmod +x "$TEMP_PATH/phakit"
-chmod +x "$TEMP_PATH/phakit.py"
-
 # Copy phakit to /etc
 cp -r "$TEMP_PATH" "$DEST_PATH"
 
+# Make sure the script files are executable
+chmod -R 775 "$DEST_PATH"
+chmod +x "$DEST_PATH/install.bash"
+chmod +x "$DEST_PATH/phakit"
+chmod +x "$DEST_PATH/phakit.py"
+
 # Link `phakit` and the Python script to /usr/local/bin
-update_symlinks "$DEST_PATH"
+update_symlinks
+
+# Set permissions for symlinks
+chmod 775 "$LINK_PATH/phakit"
+chmod 775 "$LINK_PATH/phakit.py"
+# And make them executable
+chmod +x "$LINK_PATH/phakit"
+chmod +x "$LINK_PATH/phakit.py"
 
 # Cleanup
 rm -r "$TEMP_PATH"

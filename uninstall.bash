@@ -25,6 +25,8 @@ fi
 # ──────────────────────────────────────────────────────────────────────────── #
 TEMP_PATH="$HOME/.phakit"
 DEST_PATH="/etc/phakit"
+LINK_PATH="/usr/local/bin"
+
 if [ ! -d "$DEST_PATH" ]; then
     echo "[WARNING] phakit does not seem to be installed. Will attempt to continue uninstallation..."
 fi
@@ -42,8 +44,8 @@ then
 fi
 
 # Remove symlinks
-rm /usr/local/bin/phakit
-rm /usr/local/bin/phakit.py
+rm "$LINK_PATH/phakit"
+rm "$LINK_PATH/phakit.py"
 
 # Remove phakit and temp folder
 rm -rf "$DEST_PATH"
