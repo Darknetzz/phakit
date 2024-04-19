@@ -20,8 +20,15 @@
 # ──────────────────────────────────────────────────────────────────────────── #
 #                          SECTION: INCLUDES                                   #
 # ──────────────────────────────────────────────────────────────────────────── #
+INCLUDES_IMPORTED="0"
 GITHUB_INCLUDES_FILE="https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/includes.bash"
 source <(curl -s "$INCLUDES_FILE")
+
+if [ -z "$INCLUDES_IMPORTED" ] || [ "$INCLUDES_IMPORTED" -ne "1" ]; then
+    quit 100 "Could not import includes file from GitHub."
+else
+    print "Includes file imported." "SUCCESS"
+fi
 # ────────────────────────── !SECTION /INCLUDES ──────────────────────────── #
 
 
@@ -84,24 +91,8 @@ git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
 
 
 
-# ──────────────────────────────────────────────────────────────────────────── #
-#                        SECTION: REQUIREMENTS                                 #
-# ──────────────────────────────────────────────────────────────────────────── #
-REQUIREMENTS_SCRIPT="$TEMP_PATH/requirements.bash"
-REQUIREMENTS_FILE="$TEMP_PATH/requirements"
 
-if [ ! -f "$REQUIREMENTS_FILE" ]; then
-    quit 5 "Requirements file not found in $TEMP_PATH."
-fi
 
-# Check if requirements.bash exists
-if [ ! -f "$REQUIREMENTS_SCRIPT" ]; then
-    print "Requirements script not found in $TEMP_PATH. You might need to install some packages manually. Attempting to continue..." "ERROR"
-else
-    print "Requirements script found: $REQUIREMENTS_SCRIPT. Installing requirements..."
-    source "$REQUIREMENTS_SCRIPT"
-fi
-# ───────────────────────────────── !SECTION ───────────────────────────────── #
 
 
 # ──────────────────────────────────────────────────────────────────────────── #
