@@ -78,7 +78,6 @@ set_permissions() {
     chmod +x "$LINK_PATH/phakit"
     chmod +x "$LINK_PATH/phakit.py"
 
-    print "Permissions set!"
 }
 
 # FUNCTION: update_symlinks
@@ -93,7 +92,6 @@ update_symlinks() {
     ln -s "$DEST_PATH/phakit" "$LINK_PATH/phakit"
     ln -s "$DEST_PATH/phakit.py" "$LINK_PATH/phakit.py"
 
-    print "Updated symlinks!"
 }
 
 # FUNCTION: cleanup
