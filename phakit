@@ -14,32 +14,22 @@ fi
 
 
 # ──────────────────────────────────────────────────────────────────────────── #
-#                              SECTION: IMPORTS                                #
+#                              SECTION: LOCAL INCLUDES                         #
 # ──────────────────────────────────────────────────────────────────────────── #
+INCLUDES_IMPORTED="0"
+LOCAL_APP_PATH="/usr/local/bin"
+LOCAL_INCLUDES_FILE="$LOCAL_APP_PATH/linux"
 
-# ────────────────────────────── NOTE: FUNCTIONS ───────────────────────────── #
-FUNCTIONS_IMPORTED="0"
-source "$LOCAL_APP_PATH/linux/functions.bash" || exit 100
+source "$LOCAL_INCLUDES"
 
-if [ "$FUNCTIONS_IMPORTED" -ne "1" ]; then
-    echo "[ERROR] Could not import functions.bash file ($LOCAL_APP_PATH/linux/functions.bash). Exiting..."
+if [ -z "$LOCAL_INCLUDES" ] || [ "$LOCAL_INCLUDES" -ne "1" ]; then
+    echo "[ERROR] Could not import includes file ($LOCAL_INCLUDES_FILE). Exiting..."
     exit 100
 else
     print "[OK] Functions file imported." "SUCCESS"
 fi
 
-# ─────────────────────────────── NOTE: CONFIG ─────────────────────────────── #
-CONFIG_IMPORTED="0"
-source "$LOCAL_APP_PATH/linux/config.bash"
-
-if [ "$CONFIG_IMPORTED" -ne "1" ]; then
-    echo "[ERROR] Could not import functions.bash file ($LOCAL_APP_PATH/linux/functions.bash). Exiting..."
-    exit 100
-else
-    print "[OK] Config file imported." "SUCCESS"
-fi
-
-# ───────────────────────────── !SECTION /IMPORTS ──────────────────────────── #
+# ────────────────────── !SECTION /LOCAL INCLUDES ──────────────────────────── #
 
 # Make sure Python exists
 if ! command -v "$PYTHON3" &> /dev/null; then

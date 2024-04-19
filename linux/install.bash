@@ -18,18 +18,19 @@
 
 
 # ──────────────────────────────────────────────────────────────────────────── #
-#                          SECTION: INCLUDES                                   #
+#                   SECTION: GITHUB INCLUDES                                   #
 # ──────────────────────────────────────────────────────────────────────────── #
 INCLUDES_IMPORTED="0"
-GITHUB_INCLUDES_FILE="https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/includes.bash"
-source <(curl -s "$INCLUDES_FILE")
+GITHUB_INCLUDES_URL="https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/includes.bash"
+source <(curl -s "$GITHUB_INCLUDES_URL")
 
 if [ -z "$INCLUDES_IMPORTED" ] || [ "$INCLUDES_IMPORTED" -ne "1" ]; then
-    quit 100 "Could not import includes file from GitHub."
+    echo "Could not import includes file from GitHub ($GITHUB_INCLUDES_URL). Exiting..."
+    exit 100
 else
     print "Includes file imported." "SUCCESS"
 fi
-# ────────────────────────── !SECTION /INCLUDES ──────────────────────────── #
+# ───────────────────── !SECTION /GITHUB INCLUDES ──────────────────────────── #
 
 
 
