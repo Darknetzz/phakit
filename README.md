@@ -1,5 +1,4 @@
 # phakit
-a PHP project manager written in Python.
 
 ```python
 """
@@ -21,7 +20,26 @@ a PHP project manager written in Python.
 ```
 
 # Introduction
-**phakit** is a simple PHP project/package manager.
+**phakit** is a PHP project manager to help developers save time when creating new projects.
+It is specifically designed for PHP
+
+# Planned features
+- [ ] Automated installer scripts
+    - [ ] Linux (install.bash)
+    - [ ] Windows (install.ps1)
+- [ ] Create projects
+- [ ] Initialize git on project
+- [php-utils](https://github.com/Darknetzz/php-utils)
+- [php-api](https://github.com/Darknetzz/php-api)
+- [js-utils](https://github.com/Darknetzz/js-utils)
+- [ ] Create a `index.php` template
+- [ ] JS and CSS
+- [ ] Automatic documentation
+
+# Requirements
+- [x] Python > 3.11
+- [x] PHP > 8.3
+- [x] Webserver (Apache2/NGINX)
 
 # Get started
 
@@ -81,18 +99,3 @@ Automatically create documentation for your project:
 ```bash
 ./phpm --docs "[DOCS_FOLDER]"
 ```
-
-# Requirements
-- [x] Python > 3.11
-- [x] PHP > 8.3
-- [x] Webserver (Apache2/NGINX)
-
-# Planned features
-- [ ] Create projects
-- [ ] Initialize git
-- [php-utils](https://github.com/Darknetzz/php-utils)
-- [php-api](https://github.com/Darknetzz/php-api)
-- [js-utils](https://github.com/Darknetzz/js-utils)
-- [ ] Create a `index.php` template
-- [ ] JS and CSS
-- [ ] Automatic documentation
