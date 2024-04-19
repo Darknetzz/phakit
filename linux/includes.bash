@@ -110,28 +110,35 @@ set_permissions() {
     # Make all files in the directory executable
     find "$LOCAL_PATH" -type f -exec chmod +x {} \;
 
-    # Set permissions for symlinks (should not be necessary, but just in case)
-    chmod 775 "$LOCAL_LINK_PATH/phakit"
-    chmod 775 "$LOCAL_LINK_PATH/phakit.py"
+    # # Set permissions for symlinks (should not be necessary, but just in case)
+    # chmod 775 "$LOCAL_LINK_PATH/phakit"
+    # chmod 775 "$LOCAL_LINK_PATH/phakit.py"
 
-    # And make them executable
-    chmod +x "$LOCAL_LINK_PATH/phakit"
-    chmod +x "$LOCAL_LINK_PATH/phakit.py"
-
+    # # And make them executable
+    # chmod +x "$LOCAL_LINK_PATH/phakit"
+    # chmod +x "$LOCAL_LINK_PATH/phakit.py"
 }
 
 # ───────────────────────── FUNCTION: update_symlinks ──────────────────────── #
 update_symlinks() {
     print "Updating symlinks..."
 
-    # Remove old links
-    rm "$LOCAL_LINK_PATH/phakit"
-    rm "$LOCAL_LINK_PATH/phakit.py"
+    # Remove old symlinks
+    if [ -f "$LOCAL_LINK_PATH/phakit" ]; then
+        print "Removing old symlink: $LOCAL_LINK_PATH/phakit"
+        rm "$LOCAL_LINK_PATH/phakit" || quit 180 "Unable to remove symlinks."
+    fi
+    if [ -f "$LOCAL_LINK_PATH/phakit.py" ]; then
+        print "Removing old symlink: $LOCAL_LINK_PATH/phakit.py"
+        rm "$LOCAL_LINK_PATH/phakit.py" || quit 180 "Unable to remove symlinks."
+    fi
+    print "Old symlinks removed." "SUCCESS"
 
-    # Link `phakit` and the Python script to /usr/local/bin
-    ln -s "$LOCAL_PATH/phakit" "$LOCAL_LINK_PATH/phakit"
-    ln -s "$LOCAL_PATH/phakit.py" "$LOCAL_LINK_PATH/phakit.py"
-
+    # Create new symlinks
+    print "Creating new symlinks..."
+    ln -s "$LOCAL_PATH/phakit" "$LOCAL_LINK_PATH/phakit" || quit 181 "Unable to create symlinks."
+    ln -s "$LOCAL_PATH/phakit.py" "$LOCAL_LINK_PATH/phakit.py" || || quit 181 "Unable to create symlinks."
+    print "Symlinks updated." "SUCCESS"
 }
 
 # ───────────────────────────── FUNCTION: cleanup ──────────────────────────── #
@@ -203,9 +210,9 @@ check_update() {
             quit 0 "Installation cancelled."
         fi
     else 
-        print "New version of phakit available: $GITHUB_LATEST_VERSION"
-        if prompt "Do you want to update phakit?"; then
-            echo "Updating phakit..."
+        print "Latest version of phakit available: $GITHUB_LATEST_VERSION"
+        if prompt "Do you want to install it?"; then
+            echo "Installing phakit..."
         else
             quit 0 "Update cancelled."
         fi

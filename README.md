@@ -170,7 +170,7 @@ wget -O - "$UNINSTALL_SCRIPT" | sudo bash -s
 * **91** - Uninstallation failed. Please try again or remove the folders manually
 * **92** - Uninstallation failed. Please try again or remove the symlinks manually
 
-### 100: Includes
+### 100-119: Includes
 * **100** - Could not import config file
 
 ### 160-170: PRECHECKS
@@ -179,9 +179,13 @@ wget -O - "$UNINSTALL_SCRIPT" | sudo bash -s
 * **162** - This script should not be run directly. Exiting...
 * **163** - $LOCAL_LINK_PATH does not exist. Exiting...
 
-### 17*: REQUIREMENT NOT SATISFIED
-* **170**: Python 3 is not installed.
-* **171**: Python 3 seems to be installed in $PYTHON, but returned an error.
-* **172**: Pip is not installed.
-* **173**: Pip was found at $PIP, but returned an error.
-* **174**: Git is not installed.
+### 170-179: REQUIREMENT NOT SATISFIED
+* **170** - Python 3 is not installed.
+* **171** - Python 3 seems to be installed in $PYTHON, but returned an error.
+* **172** - Pip is not installed.
+* **173** - Pip was found at $PIP, but returned an error.
+* **174** - Git is not installed.
+
+### 180-200: MISC
+* **180** - "Unable to remove symlinks."
+* **181** - "Unable to create symlinks."
