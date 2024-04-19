@@ -210,15 +210,8 @@ else
     print "Version $DEST_VERSION is already installed in $DEST_PATH."
     print "Checking for updates..."
     if [ "$GITHUB_VERSION" == "$DEST_VERSION" ]; then
-        print "No new updates available. Version $DEST_VERSION is up to date."
-
-        # Link `phakit` and the Python script to /usr/local/bin
-        update_symlinks
-
-        # Set permissions
-        set_permissions
-        
-        if prompt "Do you want to do a full reinstall of phakit?"; then
+        print "No new updates available. Version $DEST_VERSION is up to date."       
+        if prompt "Do you want to do reinstall phakit (this could help with broken links/permissions)?"; then
             echo "Reinstalling phakit..."
             # Continue with uninstallation...
         else
