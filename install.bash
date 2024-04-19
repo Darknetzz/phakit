@@ -10,10 +10,28 @@
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   FUNCTIONS                                  #
 # ──────────────────────────────────────────────────────────────────────────── #
-update_symlinks() {
-    local $DEST_PATH=${$1:-"/etc/phakit"}
-    local $LINK_PATH=${$2:-"/usr/local/bin"}
+set_permissions() {
 
+    echo "Setting permissions..."
+
+    # Set permissions for the destination folder
+    chmod -R 775 "$DEST_PATH"
+
+    # Make all files in the directory executable
+    find "$DEST_PATH" -type f -exec chmod +x {} \;
+
+    # Set permissions for symlinks (should not be necessary, but just in case)
+    chmod 775 "$LINK_PATH/phakit"
+    chmod 775 "$LINK_PATH/phakit.py"
+
+    # And make them executable
+    chmod +x "$LINK_PATH/phakit"
+    chmod +x "$LINK_PATH/phakit.py"
+
+    echo "Permissions set!"
+}
+
+update_symlinks() {
     echo "Updating symlinks..."
 
     # Remove old links
@@ -24,7 +42,7 @@ update_symlinks() {
     ln -s "$DEST_PATH/phakit" "$LINK_PATH/phakit"
     ln -s "$DEST_PATH/phakit.py" "$LINK_PATH/phakit.py"
 
-    echo "Done!"
+    echo "Updated symlinks!"
 }
 
 # ──────────────────────────────────────────────────────────────────────────── #
@@ -92,7 +110,8 @@ else
     echo "Checking for updates..."
     if [ $GITHUB_VERSION == $DEST_VERSION ]; then
         echo "No new updates available. Version $DEST_VERSION is up to date."
-        update_symlinks "$DEST_PATH"
+        update_symlinks
+        set_permissions
         exit 0
     fi
 fi
@@ -138,12 +157,8 @@ chmod +x "$DEST_PATH/phakit.py"
 # Link `phakit` and the Python script to /usr/local/bin
 update_symlinks
 
-# Set permissions for symlinks
-chmod 775 "$LINK_PATH/phakit"
-chmod 775 "$LINK_PATH/phakit.py"
-# And make them executable
-chmod +x "$LINK_PATH/phakit"
-chmod +x "$LINK_PATH/phakit.py"
+# Set permissions
+set_permissions
 
 # Cleanup
 rm -r "$TEMP_PATH"
