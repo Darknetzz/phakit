@@ -8,8 +8,10 @@
 # ──────────────────────────────────────────────────────────────────────────── #
 
 # ──────────────────────────────────────────────────────────────────────────── #
-#                                   FUNCTIONS                                  #
+#                          SECTION: FUNCTIONS                                  #
 # ──────────────────────────────────────────────────────────────────────────── #
+
+# FUNCTION: print
 print() {
     local PRINT="$1"
     local TYPE=${2:-"INFO"}
@@ -17,6 +19,20 @@ print() {
     echo -e "\n[$PREPEND] $PRINT"
 }
 
+# FUNCTION: prompt_user
+prompt() {
+    local PROMPT="$1"
+    # Prompt the user for verification
+    read -p "$PROMPT (y/N) " -n 1 -r
+    echo    # move to a new line
+    if [[ ! $REPLY =~ ^[Yy]$ ]]
+    then
+        return false
+    fi
+    return true
+}
+
+# FUNCTION: set_permissions
 set_permissions() {
 
     print "Setting permissions..."
@@ -38,6 +54,7 @@ set_permissions() {
     print "Permissions set!"
 }
 
+# FUNCTION: update_symlinks
 update_symlinks() {
     print "Updating symlinks..."
 
@@ -51,9 +68,13 @@ update_symlinks() {
 
     print "Updated symlinks!"
 }
+# ──────────────────────────── !SECTION /FUNCTIONS ─────────────────────────── #
+
+
+
 
 # ──────────────────────────────────────────────────────────────────────────── #
-#                                   PRECHECKS                                  #
+#                          SECTION: PRECHECKS                                  #
 # ──────────────────────────────────────────────────────────────────────────── #
 # Check if we are running bash
 if [ -z "$BASH_VERSION" ]; then
@@ -66,10 +87,13 @@ if [ "$EUID" -ne 0 ]; then
     print "Please run installer as root." "ERROR"
     exit 1
 fi
+# ────────────────────────── !SECTION /PRECHECKS ──────────────────────────── #
+
+
 
 
 # ──────────────────────────────────────────────────────────────────────────── #
-#                                    CONFIG                                    #
+#                           SECTION: CONFIG                                    #
 # ──────────────────────────────────────────────────────────────────────────── #
 # REVIEW: What folder should we use?
 
@@ -85,10 +109,17 @@ DEST_VERSION_FILE="$DEST_PATH/VERSION"
 
 # TEMP_PATH: Set the temporary path
 TEMP_PATH="$HOME/.phakit"
+# ───────────────────────────── !SECTION /CONFIG ──────────────────────────── #
 
+
+
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                          SECTION: CHECK DIRECTORIES                          #
+# ──────────────────────────────────────────────────────────────────────────── #
 # Check for existence of folders and create them
 if [ ! -d "$LINK_PATH" ]; then
-    echo "[ERROR] $LINK_PATH does not exist. Exiting..."
+    print "$LINK_PATH does not exist. Exiting..." "ERROR"
     exit 1
 fi
 if [ ! -d "$TEMP_PATH" ]; then
@@ -98,7 +129,14 @@ fi
 if [ ! -d "$DEST_PATH" ]; then
     mkdir -p "$DEST_PATH"
 fi
+# ─────────────────── !SECTION /CHECK DIRECTORIES ─────────────────────────── #
 
+
+
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                       SECTION: Check installed version                       #
+# ──────────────────────────────────────────────────────────────────────────── #
 # Save installed version to variable
 if [ -f "$DEST_VERSION_FILE" ]; then
     DEST_VERSION=$(cat "$DEST_VERSION_FILE")
@@ -109,49 +147,72 @@ fi
 GITHUB_VERSION=$(wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/VERSION)
 
 # Check if phakit is already installed
-echo "Checking for existing version..."
+print "Checking for existing version..."
 if [ "$DEST_VERSION" == "0" ]; then
-    echo "phakit not installed. Installing phakit..."
+    print "phakit not installed. Installing phakit..."
 else
-    echo "Version $DEST_VERSION is already installed in $DEST_PATH."
-    echo "Checking for updates..."
+    print "Version $DEST_VERSION is already installed in $DEST_PATH."
+    print "Checking for updates..."
     if [ $GITHUB_VERSION == $DEST_VERSION ]; then
-        echo "No new updates available. Version $DEST_VERSION is up to date."
-        update_symlinks
-        set_permissions
-        exit 0
+        print "No new updates available. Version $DEST_VERSION is up to date."
+        
+        if prompt "Do you want to do a reinstall of phakit?"; then
+            echo "Reinstalling phakit..."
+            # Continue with uninstallation...
+        else
+            update_symlinks
+            set_permissions
+            exit 0
+        fi
     fi
 fi
 
-echo "Version $GITHUB_VERSION will be installed..."
+print "Version $GITHUB_VERSION will be installed..."
+# ───────────────────────────────── !SECTION ───────────────────────────────── #
 
-# Clone the git repo
-git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
+
 
 # ──────────────────────────────────────────────────────────────────────────── #
-#                                 REQUIREMENTS                                 #
+#                                SECTION GIT CLONE                             #
+# ──────────────────────────────────────────────────────────────────────────── #
+
+# Delete the current $TEMP_PATH
+rm -rf "$TEMP_PATH"
+
+# Clone the git repo to $TEMP_PATH
+git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
+# ───────────────────────────────── !SECTION ───────────────────────────────── #
+
+
+
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                        SECTION: REQUIREMENTS                                 #
 # ──────────────────────────────────────────────────────────────────────────── #
 REQUIREMENTS_SCRIPT="$TEMP_PATH/requirements.bash"
 REQUIREMENTS_FILE="$TEMP_PATH/requirements"
 
 if [ ! -f "$REQUIREMENTS_FILE" ]; then
-    echo "[ERROR] Requirements file not found in $TEMP_PATH."
+    print "Requirements file not found in $TEMP_PATH." "ERROR"
     exit 1
 fi
 
 # Check if requirements.bash exists
 if [ ! -f "$REQUIREMENTS_SCRIPT" ]; then
-    echo "[ERROR] requirements.bash not found in $TEMP_PATH. Are you running with '--remote' flag?"
-    echo "You might need to install some packages manually."
+    print "requirements.bash not found in $TEMP_PATH. Are you running with '--remote' flag?" "ERROR"
+    print "You might need to install some packages manually."
 else
-    echo "Requirements script found. Installing requirements..."
+    print "Requirements script found. Installing requirements..."
     source "$REQUIREMENTS_SCRIPT"
 fi
-
+# ───────────────────────────────── !SECTION ───────────────────────────────── #
 
 # Change directory to home folder
 # cd "$HOME"
 
+# ──────────────────────────────────────────────────────────────────────────── #
+#                               SECTION: Finalize                              #
+# ──────────────────────────────────────────────────────────────────────────── #
 # Copy phakit to /etc
 cp -r "$TEMP_PATH" "$DEST_PATH"
 
@@ -169,3 +230,4 @@ set_permissions
 
 # Cleanup
 rm -r "$TEMP_PATH"
+# ───────────────────────────────── !SECTION ───────────────────────────────── #
