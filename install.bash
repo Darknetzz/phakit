@@ -34,26 +34,13 @@ print() {
 
     # Choose color based on message type
     local COLOR=$NC
-    case $TYPE in
+    case $PREPEND in
         "ERROR") COLOR=$RED;;
         "SUCCESS") COLOR=$GREEN;;
         "WARNING") COLOR=$YELLOW;;
         "INFO") COLOR=$BLUE;;
     esac
 
-    case "$PREPEND" in
-        "ERROR")
-            echo -e "\n[$PREPEND] $PRINT\n"
-            ;;
-        "SUCCESS")
-            echo -e "\n[$PREPEND] $PRINT\n"
-            ;;
-        *)
-            echo -e "[$PREPEND] $PRINT"
-            ;;
-    esac
-
-    
     # Print message
     echo -e "${COLOR}[$PREPEND] $PRINT${NC}"
 }
