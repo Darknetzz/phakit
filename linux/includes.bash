@@ -123,21 +123,24 @@ set_permissions() {
 update_symlinks() {
     print "Updating symlinks..."
 
-    # Remove old symlinks
-    if [ -f "$LOCAL_LINK_PATH/phakit" ]; then
-        print "Removing old symlink: $LOCAL_LINK_PATH/phakit"
-        rm "$LOCAL_LINK_PATH/phakit" || quit 180 "Unable to remove symlinks."
-    fi
-    if [ -f "$LOCAL_LINK_PATH/phakit.py" ]; then
-        print "Removing old symlink: $LOCAL_LINK_PATH/phakit.py"
-        rm "$LOCAL_LINK_PATH/phakit.py" || quit 180 "Unable to remove symlinks."
+    # Remove the symlinks if they exist (even if they're dangling)
+    print "Removing old symlinks in $LOCAL_LINK_PATH"
+    [ -L "$LOCAL_LINK_PATH/phakit" ] && rm "$LOCAL_LINK_PATH/phakit"
+    [ -L "$LOCAL_LINK_PATH/phakit.py" ] && rm "$LOCAL_LINK_PATH/phakit.py"
+
+    if [ -L "$LOCAL_LINK_PATH/phakit" ] || [ -L "$LOCAL_LINK_PATH/phakit.py" ] ; then
+        quit 180 "Unable to remove symlinks."
     fi
     print "Old symlinks removed." "SUCCESS"
 
     # Create new symlinks
     print "Creating new symlinks..."
-    ln -s "$LOCAL_PATH/phakit" "$LOCAL_LINK_PATH/phakit" || quit 181 "Unable to create symlinks."
-    ln -s "$LOCAL_PATH/phakit.py" "$LOCAL_LINK_PATH/phakit.py" || || quit 181 "Unable to create symlinks."
+    ln -s "$LOCAL_PATH/phakit" "$LOCAL_LINK_PATH/phakit"
+    ln -s "$LOCAL_PATH/phakit.py" "$LOCAL_LINK_PATH/phakit.py"
+
+    if [ ! -L "$LOCAL_LINK_PATH/phakit" ] || [ ! -L "$LOCAL_LINK_PATH/phakit.py" ]; then
+        quit 181 "Unable to create symlinks."
+    fi
     print "Symlinks updated." "SUCCESS"
 }
 

@@ -137,17 +137,16 @@ Automatically create documentation for your project:
 ## Linux
 ```bash
 sudo su - # the uninstaller must run as root!
-UNINSTALL_SCRIPT="https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash"
 ```
 
 * Using cURL:
 ```bash
-bash -s <(curl -s "$UNINSTALL_SCRIPT")
+bash -s <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash)
 ```
 
 * Using wget:
 ```bash
-wget -O - "$UNINSTALL_SCRIPT" | sudo bash -s
+wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash | sudo bash -s
 ```
 
 # Troubleshooting
