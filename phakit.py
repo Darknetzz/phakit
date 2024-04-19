@@ -29,11 +29,16 @@ def main():
         epilog='by @Darknetzz'
     )
 
-    parser.add_argument('-i', '--init', help='Initialize a new project', default=None)
-    parser.add_argument('-p', '--directory', help='The project\'s directory', default=cwd)
-    parser.add_argument('-d', '--docs', help='Automatically create docs for your project', default=None)
+    parser.add_argument('-i', '--init', help='Initialize a new project', action='store_true')
+    parser.add_argument('-d', '--docs', help='Automatically create docs for your project', action='store_true')
     parser.add_argument('-v', '--version', help='Get current installed version of phakit', action='store_true')
+    parser.add_argument('--directory', help='The directory to use for this action', default=None)
     args = parser.parse_args()
+
+    i = args.init
+    d = args.docs
+    v = args.version
+
 
     initDir = args.init
     if args.init is not None:
