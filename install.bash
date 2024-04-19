@@ -222,9 +222,7 @@ else
             echo "Reinstalling phakit..."
             # Continue with uninstallation...
         else
-            update_symlinks
-            set_permissions
-            quit 0 "Updated symlinks and permissions"
+            quit 0 "Installation cancelled."
         fi
     fi
 fi
