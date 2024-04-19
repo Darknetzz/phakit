@@ -49,14 +49,17 @@ It is specifically designed for PHP
 ## Linux
 
 ### Option 1: Using the automated installer (recommended)
-* Using cURL:
+
+#### Using cURL:
 ```bash
-sudo bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash)
+sudo su - # the installer must run as root!
+bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash)
 ```
 
-* Using wget:
+#### Using wget:
 ```bash
-wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | sudo bash
+sudo su - # the installer must run as root!
+wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/install.bash | bash
 ```
 
 ### Option 2: Manually install
