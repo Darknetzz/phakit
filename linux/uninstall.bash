@@ -29,7 +29,7 @@ fi
 # ──────────────────────────────────────────────────────────────────────────── #
 
 # Prompt the user for verification
-if ! promt "Are you sure you want to uninstall phakit? (y/N) "; then
+if ! prompt "Are you sure you want to uninstall phakit? (y/N) "; then
     quit 0 "Uninstallation cancelled."
 fi
 
