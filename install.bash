@@ -121,14 +121,11 @@ TEMP_PATH="$HOME/.phakit"
 # Set CWD to home directory
 cd "$HOME"
 
-# Remove $TEMP_PATH if it's already there
+# Clean up previous installation files if they are present
 if [ -d "$TEMP_PATH" ]; then
     print "Cleaning up previous installation files: $TEMP_PATH..."
     rm -rf "$TEMP_PATH"
 else
-    print "Creating temporary installation files path: $TEMP_PATH..."
-fi
-# NOTE: $TEMP_PATH does not need to be created as git clone will do it for us
 
 # Check for existence of folders and create them
 if [ ! -d "$LINK_PATH" ]; then
@@ -164,8 +161,14 @@ else
     print "Checking for updates..."
     if [ $GITHUB_VERSION == $DEST_VERSION ]; then
         print "No new updates available. Version $DEST_VERSION is up to date."
+
+        # Link `phakit` and the Python script to /usr/local/bin
+        update_symlinks
+
+        # Set permissions
+        set_permissions
         
-        if prompt "Do you want to do a reinstall of phakit?"; then
+        if prompt "Do you want to do a full reinstall of phakit?"; then
             echo "Reinstalling phakit..."
             # Continue with uninstallation...
         else
@@ -184,6 +187,10 @@ print "Version $GITHUB_VERSION will be installed..."
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                SECTION GIT CLONE                             #
 # ──────────────────────────────────────────────────────────────────────────── #
+
+# NOTE: $TEMP_PATH does not need to be created as git clone will do it for us
+# EDIT: We could probably just create it anyway
+mkdir -p "$TEMP_PATH"
 
 # Clone the git repo to $TEMP_PATH
 git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
@@ -205,7 +212,7 @@ fi
 
 # Check if requirements.bash exists
 if [ ! -f "$REQUIREMENTS_SCRIPT" ]; then
-    print "requirements.bash not found in $TEMP_PATH. Are you running with '--remote' flag?" "ERROR"
+    print "requirements.bash not found in $TEMP_PATH." "ERROR"
     print "You might need to install some packages manually."
 else
     print "Requirements script found. Installing requirements..."
