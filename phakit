@@ -2,7 +2,8 @@
 
 # Path to your python script
 SCRIPT_PATH="phakit.py"
-DEST_PATH="/etc/phakit"
+DEST_PATH="/etc/phakit.py"
+LINK_PATH="/usr/local/bin/phakit.py"
 
 # Make sure Python exists
 if ! command -v python3 &> /dev/null; then
@@ -19,15 +20,27 @@ for package in "${PACKAGES[@]}"; do
     fi
 done
 
+# REVIEW: Revies this conditional mess at some point...
 # Check if the script exists
-if [ ! -f "$SCRIPT_PATH" ]; then
-    echo "[WARNING] $SCRIPT_PATH does not exist in PATH. Running from $DEST_PATH..."
-elif [ -f "$DEST_PATH/$SCRIPT_PATH" ]; then
-    SCRIPT_PATH="$DEST_PATH/$SCRIPT_PATH"
+# in PATH
+if [ -f "$SCRIPT_PATH" ]; then
+    SCRIPT_BIN="$SCRIPT_PATH"
 else
-    echo "[ERROR] $DEST_PATH does not exist. Exiting..."
-    exit 1
+    echo "[WARNING] $SCRIPT_PATH does not exist in PATH. Running from $LINK_PATH..."
+    # as symlink
+    if [ -f "$LINK_PATH" ]; then
+        SCRIPT_BIN="$LINK_PATH"
+    else
+        echo "[WARNING] Symlinks not found in $LINK_PATH. Running from $DEST_PATH..."
+        # as destination
+        if [ -f "$DEST_PATH/$SCRIPT_PATH" ]; then
+            SCRIPT_BIN="$DEST_PATH"
+        else
+            echo "[ERROR] $DEST_PATH does not exist. Exiting..."
+            exit 1
+        fi
+    fi
 fi
 
 # Call the python script with all arguments passed to the bash script
-python3 "$SCRIPT_PATH" "$@"
+python3 "$SCRIPT_BIN" "$@"
