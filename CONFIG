@@ -1,0 +1,62 @@
+#!/bin/bash
+# This config file is both for bash and powershell.
+# In bash, it is sourced. In powershell, we need to read the file and add $.
+
+# NOTE: This is not in use yet
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                 SECTION: BASH                                #
+# ──────────────────────────────────────────────────────────────────────────── #
+
+# Find Python and pip
+PYTHON3=$(which python3)
+PYTHON="$PYTHON3"
+PIP3=$(which pip3)
+PIP="$PIP3"
+GIT=$(which git)
+
+
+# VAR: LINK_PATH ("/usr/local/bin"): Link path for symlinks
+LINK_PATH="/usr/local/bin"
+
+# VAR: DEST_PATH ("/etc/phakit") Destination (for phakit files): /etc/phakit
+DEST_PATH="/etc/phakit"
+DEST_VERSION_FILE="$DEST_PATH/VERSION"
+
+# VAR: TEMP_PATH ("/root/.phakit"): Temporary dir for installation files 
+TEMP_PATH="$HOME/.phakit"
+
+# CONFIG_IMPORTED: Set to 1 if the config file is imported
+CONFIG_IMPORTED=1
+
+# LOCAL_*: Set the local variables
+
+
+# GITHUB_*: Set the github variables
+GITHUB_BRANCH="main"
+GITHUB_REPO_PATH="Darknetzz/phakit"
+GITHUB_REPO_URL="https://github.com/$GITHUB_REPO_PATH"
+GITHUB_RAW_URL="https://raw.githubusercontent.com/$GITHUB_REPO_PATH/$GITHUB_BRANCH"
+GITHUB_CONFIGFILE="$GITHUB_RAW_URL/VERSION"
+GITHUB_VERSIONFILE="$GITHUB_RAW_URL/VERSION"
+GITHUB_LATEST_VERSION=$(wget -O - "$GITHUB_VERSIONFILE")
+GITHUB_REQUIREMENTSFILE="$GITHUB_RAW_URL/requirements"
+
+exit 0
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                !SECTION /BASH                                #
+# ──────────────────────────────────────────────────────────────────────────── #
+
+
+
+
+
+
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                 SECTION: POWERSHELL                          #
+# ──────────────────────────────────────────────────────────────────────────── #
+Write-Output "Not implemented yet"
+# ──────────────────────────────────────────────────────────────────────────── #
+#                             !SECTION /POWERSHELL                             #
+# ──────────────────────────────────────────────────────────────────────────── #

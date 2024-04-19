@@ -155,7 +155,7 @@ else
 fi
 
 if [ "$CONFIG_IMPORTED" -ne "1" ]; then
-    exit 100 "Could not import config file."
+    quit 100 "Could not import config file."
 else
     print "Config file imported." "SUCCESS"
 fi
