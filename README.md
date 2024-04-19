@@ -32,9 +32,9 @@ It is specifically designed for PHP
     - [ ] Windows (uninstall.ps1)
 - [ ] Create projects
 - [ ] Initialize git on project
-- [php-utils](https://github.com/Darknetzz/php-utils)
-- [php-api](https://github.com/Darknetzz/php-api)
-- [js-utils](https://github.com/Darknetzz/js-utils)
+- [ ] [php-utils](https://github.com/Darknetzz/php-utils)
+- [ ] [php-api](https://github.com/Darknetzz/php-api)
+- [ ] [js-utils](https://github.com/Darknetzz/js-utils)
 - [ ] Create a `index.php` template
 - [ ] JS and CSS
 - [ ] Automatic documentation
