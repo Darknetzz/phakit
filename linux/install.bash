@@ -33,7 +33,7 @@ fi
 
 # CD to home directory
 print "Changing directory to $HOME..."
-cd "$HOME" || quit 3 "Could not change directory to $HOME."
+cd "$HOME" || quit 10 "Could not change directory to $HOME."
 print "CWD: $(pwd)" "SUCCESS"
 
 # Clean up previous installation files if they are present

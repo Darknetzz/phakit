@@ -37,6 +37,12 @@ then
     exit 1
 fi
 
+print "Uninstalling phakit..." "INFO"
+
+if [ ! -d "$LOCAL_PATH" ]; then
+    quit 90 "phakit is not installed."
+fi
+
 # Remove symlinks
 rm "$LOCAL_LINK_PATH/phakit"
 rm "$LOCAL_LINK_PATH/phakit.py"
@@ -44,3 +50,15 @@ rm "$LOCAL_LINK_PATH/phakit.py"
 # Remove phakit and temp folder
 rm -rf "$LOCAL_PATH"
 rm -rf "$TEMP_PATH"
+
+# Check if phakit is still installed
+if [ -d "$LOCAL_PATH" ] || [ -d "$TEMP_PATH" ]; then
+    quit 91 "Uninstallation failed. Please try again or remove the folders manually"
+fi
+
+# Check if symlinks are still present
+if [ -f "$LOCAL_LINK_PATH/phakit" ] || [ -f "$LOCAL_LINK_PATH/phakit.py" ]; then
+    quit 92 "Uninstallation failed. Please try again or remove the symlinks manually"
+fi
+
+quit 0 "Uninstallation complete."
