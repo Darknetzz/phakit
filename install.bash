@@ -220,12 +220,6 @@ fi
 # Copy phakit to /etc
 cp -r "$TEMP_PATH" "$DEST_PATH"
 
-# Make sure the script files are executable
-chmod -R 775 "$DEST_PATH"
-chmod +x "$DEST_PATH/install.bash"
-chmod +x "$DEST_PATH/phakit"
-chmod +x "$DEST_PATH/phakit.py"
-
 # Link `phakit` and the Python script to /usr/local/bin
 update_symlinks
 
