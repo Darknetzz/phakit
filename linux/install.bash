@@ -73,6 +73,6 @@ set_permissions
 # Cleanup
 cleanup
 
-quit 0
+quit 0 "Installation complete."
 # ───────────────────────────────── !SECTION ───────────────────────────────── #
 

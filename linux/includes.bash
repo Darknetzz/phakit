@@ -178,31 +178,6 @@ quit() {
     exit "$EXIT_CODE"
 }
 
-# ──────────────────────── FUNCTION: check_installed ─ ─────────────────────── #
-# check_installed() {
-#     # Check if LOCAL_VERSION is set
-#     if [ -n "$LOCAL_VERSION" ] && [ "$LOCAL_VERSION" != "0" ] && [ -d "$LOCAL_PATH" ]; then
-#         print "phakit $LOCAL_VERSION is already installed"
-#         check_update
-#         return
-#     else
-#         print "phakit is not installed"
-#         LOCAL_VERSION="0"
-
-#         # Check if LOCAL_VERSION_FILE exists
-#         if [ -f "$LOCAL_VERSION_FILE" ]; then
-#             print "LOCAL_VERSION is not set, but $LOCAL_VERSION_FILE exists. Reading version from file..."
-#             LOCAL_VERSION="$(cat "$LOCAL_VERSION_FILE")"
-#         fi
-#     fi
-
-#     if [ -z "$LOCAL_VERSION" ]; then
-#         quit 101 "Unable to update phakit. Unable to read LOCAL_VERSION (empty). Check permissions."
-#     fi
-
-#     check_update
-# }
-
 # ─────────────────────────── FUNCTION install_update ────────────────────────── #
 install_update() {
 
