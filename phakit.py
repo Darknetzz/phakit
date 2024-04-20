@@ -84,13 +84,14 @@ def main():
         with open("/etc/phakit/VERSION", "r") as v:
             printr("phakit version: " + v.read())
             sys.exit(0)
+    if args.update is True:
+        printr("Updating phakit...")
+        sys.exit(0)
     if args.init is True:
         printr("Initializing new project...")
-        if os.path.exists(args.init):
+        if os.path.exists(args.directory):
             printr('Directory already exists. Please specify a directory that does not exist.')
             sys.exit(1)
-
-    subprocess.run(['tar', '-czf', args.output, args.directory])
 
 if __name__ == '__main__':
     main()
