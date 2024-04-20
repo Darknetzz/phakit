@@ -9,7 +9,7 @@ LOCAL_INCLUDES_FILE="$LOCAL_APP_PATH/linux/includes.bash"
 
 source "$LOCAL_INCLUDES"
 
-if [ -z "$LOCAL_INCLUDES" ] || [ "$LOCAL_INCLUDES" -ne "1" ]; then
+if [ -z "$INCLUDES_IMPORTED" ] || [ "$INCLUDES_IMPORTED" -ne "1" ]; then
     echo "[ERROR] Could not import includes file ($LOCAL_INCLUDES_FILE). Exiting..."
     exit 100
 else
