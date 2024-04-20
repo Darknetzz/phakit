@@ -95,7 +95,6 @@ prompt() {
     # Prompt the user for verification
     print "$PROMPT" "PROMPT"
     read -p "Continue? (y/N) " -n 1 -r
-    echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         return 1
     fi
