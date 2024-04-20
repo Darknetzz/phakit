@@ -5,7 +5,7 @@
 # ──────────────────────────────────────────────────────────────────────────── #
 INCLUDES_IMPORTED="0"
 LOCAL_APP_PATH="/etc/phakit"
-LOCAL_INCLUDES_FILE="$LOCAL_APP_PATH/includes.bash"
+LOCAL_INCLUDES_FILE="$LOCAL_APP_PATH/linux/includes.bash"
 
 source "$LOCAL_INCLUDES"
 
