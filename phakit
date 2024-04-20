@@ -4,8 +4,8 @@
 #                              SECTION: LOCAL INCLUDES                         #
 # ──────────────────────────────────────────────────────────────────────────── #
 INCLUDES_IMPORTED="0"
-LOCAL_APP_PATH="/usr/local/bin"
-LOCAL_INCLUDES_FILE="$LOCAL_APP_PATH/linux"
+LOCAL_APP_PATH="/etc/phakit"
+LOCAL_INCLUDES_FILE="$LOCAL_APP_PATH/includes.bash"
 
 source "$LOCAL_INCLUDES"
 

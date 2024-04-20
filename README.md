@@ -53,7 +53,8 @@ It is specifically designed for PHP
 ### Option 1: Using the automated installer (recommended)
 
 ```bash
-echo "bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/install.bash)" | sudo su -
+sudo su -
+bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/install.bash)
 ```
 
 
@@ -128,7 +129,8 @@ Automatically create documentation for your project:
 
 * Using cURL:
 ```bash
-echo "bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash)" | sudo su -
+sudo su -
+bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash)"
 ```
 
 # Troubleshooting
