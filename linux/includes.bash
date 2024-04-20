@@ -240,7 +240,7 @@ install_update() {
     git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
 
     # Copy phakit to /etc
-    cp -r "$TEMP_PATH" "$LOCAL_PATH"
+    cp -r "$TEMP_PATH/*" "$LOCAL_PATH"
 }
 
 

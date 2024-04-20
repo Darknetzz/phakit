@@ -128,7 +128,7 @@ Automatically create documentation for your project:
 
 * Using cURL:
 ```bash
-echo "bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/install.bash)" | sudo su -
+echo "bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash)" | sudo su -
 ```
 
 # Troubleshooting
