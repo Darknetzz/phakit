@@ -24,12 +24,12 @@
 It is specifically designed for PHP
 
 # Roadmap for 1.0.0
-- [ ] Automated installer scripts
-    - [x] Linux (install.bash)
-    - [ ] Windows (install.ps1)
-- [ ] Automated uninstall scripts
-    - [x] Linux (uninstall.bash)
-    - [ ] Windows (uninstall.ps1)
+- [x] Linux
+    - [x] Installer script
+    - [x] Uninstaller script
+- [ ] Windows
+    - [ ] Installer script
+    - [ ] Uninstaller script
 - [ ] Create projects
 - [ ] Initialize git on project
 - [ ] [php-utils](https://github.com/Darknetzz/php-utils)

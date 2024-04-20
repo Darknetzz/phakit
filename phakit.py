@@ -83,6 +83,11 @@ def main():
     # Save arguments
     args      = parser.parse_args()
 
+    # print help if no args passed
+    if not len(sys.argv) > 1:
+        parser.print_help()
+        sys.exit(1)
+
     if args.version is True:
         with open("/etc/phakit/VERSION", "r") as v:
             printr("phakit version: " + v.read())
