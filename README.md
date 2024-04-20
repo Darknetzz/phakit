@@ -40,7 +40,8 @@ It is specifically designed for PHP
 - [ ] Automatic documentation
 
 # Requirements
-- [x] Python > 3.11
+- [x] Python > 3.11 with the following modules:
+    - [x] requests
     - [x] argparse
     - [x] rich
 - [x] PHP > 8.3
@@ -68,7 +69,7 @@ TEMP_PATH="$HOME/.phakit"
 LOCAL_PATH="/etc/phakit"
 LOCAL_LINK_PATH="/usr/local/bin"
 
-# Cleanup previous installation files
+# Cleanup previous installation files (if any)
 if [ -d "$TEMP_PATH" ]; then
     rm -rf "$TEMP_PATH"
     mkdir "$TEMP_PATH"
