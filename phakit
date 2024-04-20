@@ -7,7 +7,7 @@ INCLUDES_IMPORTED="0"
 LOCAL_APP_PATH="/etc/phakit"
 LOCAL_INCLUDES_FILE="$LOCAL_APP_PATH/linux/includes.bash"
 
-source "$LOCAL_INCLUDES"
+source "$LOCAL_INCLUDES_FILE"
 
 if [ -z "$INCLUDES_IMPORTED" ] || [ "$INCLUDES_IMPORTED" -ne "1" ]; then
     echo "[ERROR] Could not import includes file ($LOCAL_INCLUDES_FILE). Exiting..."
