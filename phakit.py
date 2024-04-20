@@ -6,6 +6,7 @@
 import os, sys, argparse, subprocess
 from rich.console import Console
 import requests
+
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   PRECHECKS                                  #
 # ──────────────────────────────────────────────────────────────────────────── #
@@ -13,8 +14,14 @@ import requests
 if sys.version_info < (3, 11):
     sys.exit("Python 3.11 or later is required.")
 
-# Rich Consolec
+# Rich Console
 con = Console()
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                    CONFIG                                    #
+# ──────────────────────────────────────────────────────────────────────────── #
+LOCAL_PATH="/etc/phakit"
+
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   FUNCTIONS                                  #
@@ -96,6 +103,7 @@ def main():
 
     if args.update is True:
         printr("Updating phakit...")
+        subprocess.run(f"{LOCAL_PATH}/linux/install.sh", shell=True, check=True)
         sys.exit(0)
 
 

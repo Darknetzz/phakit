@@ -41,6 +41,7 @@ It is specifically designed for PHP
 
 # Requirements
 - [x] Python > 3.11 with the following modules:
+    . [x] subprocess
     - [x] requests
     - [x] argparse
     - [x] rich
