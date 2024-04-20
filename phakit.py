@@ -5,7 +5,7 @@
 # ──────────────────────────────────────────────────────────────────────────── #
 import os, sys, argparse, subprocess
 from rich import print
-
+import requests
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   PRECHECKS                                  #
 # ──────────────────────────────────────────────────────────────────────────── #
@@ -81,8 +81,8 @@ def main():
     args      = parser.parse_args()
 
     if args.version is True:
-        while open("/etc/phakit/VERSION", "r") as v:
-            printr("phakit version: " + v)
+        with open("/etc/phakit/VERSION", "r") as v:
+            printr("phakit version: " + v.read())
             sys.exit(0)
     if args.init is True:
         printr("Initializing new project...")
