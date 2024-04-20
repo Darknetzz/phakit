@@ -86,12 +86,28 @@ def main():
     if args.version is True:
         with open("/etc/phakit/VERSION", "r") as v:
             printr("phakit version: " + v.read())
-            sys.exit(0)
+        sys.exit(0)
+
+
     if args.update is True:
         printr("Updating phakit...")
         sys.exit(0)
+
+
     if args.init is True:
         printr("Initializing new project...")
+        if args.directory is None:
+            if prompt(f'Project directory not specified. Initialize project in current directory {os.getcwd()}?'):
+                args.directory = os.getcwd()
+            else:
+                printr("Please specify a directory to initialize the project in.")
+                sys.exit(1)
+        if os.path.exists(args.directory):
+            printr('Directory already exists. Please specify a directory that does not exist.')
+            sys.exit(1)
+
+    if args.docs is True:
+        printr("Creating documentation...")
         if os.path.exists(args.directory):
             printr('Directory already exists. Please specify a directory that does not exist.')
             sys.exit(1)

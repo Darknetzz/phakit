@@ -189,10 +189,12 @@ install_update() {
 
 
     # Check if installed
-    if [ -z "$LOCAL_VERSION" ] || [ "$LOCAL_VERSION" == "0" ]; then
-        print "phakit is not installed"
-    else
+    if [ -f "$LOCAL_VERSION_FILE" ]; then
+        LOCAL_VERSION=$(cat "$LOCAL_VERSION_FILE")
         print "Your version of phakit: $LOCAL_VERSION"
+    else
+        LOCAL_VERSION="0"
+        print "phakit is not installed"
     fi
 
     # Check there is a newer version
