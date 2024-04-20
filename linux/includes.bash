@@ -94,11 +94,15 @@ prompt() {
     local PROMPT="$1"
     # Prompt the user for verification
     print "$PROMPT" "PROMPT"
-    read -p "Continue? (y/N) " -n 1 -r
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    read -r -p "Continue? (y/N) " response
+    case "$response" in
+    [yY][eE][sS]|[yY]) 
+        return 0
+        ;;
+    *)
         return 1
-    fi
-    return 0
+        ;;
+    esac
 }
 
 # ───────────────────────── FUNCTION: set_permissions ──────────────────────── #
