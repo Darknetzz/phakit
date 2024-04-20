@@ -24,7 +24,7 @@ if ! command -v "$PYTHON3" &> /dev/null; then
     quit 101 "Python 3 is not installed."
 fi
 
-echo "[OK] Found phakit, running from $SCRIPT_BIN..."
+echo "[OK] Found phakit, running from $LOCAL_PATH..."
 
 # Call the python script with all arguments passed to the bash script
-python3 "$SCRIPT_BIN" "$@"
+python3 "$LOCAL_PATH/phakit.py" "$@"
