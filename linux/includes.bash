@@ -97,10 +97,10 @@ prompt() {
     read -r -p "Continue? (y/N) " response
     case "$response" in
     [yY][eE][sS]|[yY]) 
-        return 0
+        return 1
         ;;
     *)
-        return 1
+        return 0
         ;;
     esac
 }
