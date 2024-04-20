@@ -4,7 +4,7 @@
 #                                    IMPORTS                                   #
 # ──────────────────────────────────────────────────────────────────────────── #
 import os, sys, argparse, subprocess
-from rich import print
+from rich.console import Console
 import requests
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   PRECHECKS                                  #
@@ -12,6 +12,9 @@ import requests
 # Check Python version
 if sys.version_info < (3, 11):
     sys.exit("Python 3.11 or later is required.")
+
+# Rich Consolec
+con = Console()
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   FUNCTIONS                                  #
@@ -32,7 +35,7 @@ def printr(text, type = "INFO"):
         color  = "BLUE"
     elif type == "PROMPT":
         color  = "GREY"
-    print(f"[{type}] {text}", style=f"bold {color}")
+    con.print(f"[{type}] {text}", style=f"bold {color}")
 
 # ───────────────────────────── FUNCTION: prompt ───────────────────────────── #
 def prompt(text):
