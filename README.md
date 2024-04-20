@@ -23,12 +23,12 @@
 **phakit** is a PHP project manager to help developers save time when creating new projects.
 It is specifically designed for PHP
 
-# Planned features
+# Roadmap for 1.0.0
 - [ ] Automated installer scripts
-    - [ ] Linux (install.bash)
+    - [x] Linux (install.bash)
     - [ ] Windows (install.ps1)
 - [ ] Automated uninstall scripts
-    - [ ] Linux (uninstall.bash)
+    - [x] Linux (uninstall.bash)
     - [ ] Windows (uninstall.ps1)
 - [ ] Create projects
 - [ ] Initialize git on project
@@ -50,22 +50,12 @@ It is specifically designed for PHP
 
 ## Linux
 
-```bash
-sudo su - # the installer must run as root!
-INSTALL_SCRIPT="https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/install.bash"
-```
-
 ### Option 1: Using the automated installer (recommended)
 
-#### Using cURL:
 ```bash
-bash <(curl -s "$INSTALL_SCRIPT")
+echo "bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/install.bash)" | sudo su -
 ```
 
-#### Using wget:
-```bash
-wget -O - "$INSTALL_SCRIPT" | bash
-```
 
 ### Option 2: Manually install
 For those who favors control over simplicity. This script is a minimalistic version of `install.bash`:
@@ -135,18 +125,10 @@ Automatically create documentation for your project:
 # Uninstalling
 
 ## Linux
-```bash
-sudo su - # the uninstaller must run as root!
-```
 
 * Using cURL:
 ```bash
-bash -s <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash)
-```
-
-* Using wget:
-```bash
-wget -O - https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash | sudo bash -s
+echo "bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/install.bash)" | sudo su -
 ```
 
 # Troubleshooting
