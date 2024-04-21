@@ -135,7 +135,9 @@ def main():
             else:
                 printr("Please specify a directory to initialize the project in.")
                 sys.exit(1)
+
         if os.path.exists(directory) and os.path.isdir(directory) and os.listdir(directory) is not []:
+            printr(os.listdir(directory))
             printr('Directory already exists and is not empty. Please specify a directory is empty or does not exist.')
             sys.exit(1)
 
