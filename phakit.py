@@ -6,6 +6,7 @@
 import os, sys, argparse, subprocess
 from rich.console import Console
 import requests
+import shutil
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   PRECHECKS                                  #
@@ -135,12 +136,17 @@ def main():
             else:
                 directory = os.path.abspath(directory)
 
-        if os.path.isdir(directory) and os.listdir(directory):
-            printr('Directory already exists and is not empty. Please specify a directory is empty or does not exist.')
-            sys.exit(1)
+        if os.path.isdir(directory):
+            if os.listdir(directory):
+                printr('Directory already exists and is not empty. Please specify a directory is empty or does not exist.')
+                sys.exit(1)
+            else:
+                os.makedirs(directory)
 
-        printr("Initializing new project...")
-        os.makedirs(directory)
+        printr(f"Initializing new project {directory}...")
+        os.chdir(directory)
+        shutil.copytree(LOCAL_PATH + "/deploy", directory)
+        
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                     DOCS                                     #
