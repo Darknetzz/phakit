@@ -6,6 +6,10 @@ if (!file_exists('config.php')) {
 
 require_once('config.php');
 
+if (!defined('PHAKIT_CONFIG')) {
+    die('Please define the PHAKIT_CONFIG constant in the config.php file.');
+}
+
 class Phakit {
 
     /* ────────────────────────────────────────────────────────────────────────── */
@@ -14,10 +18,6 @@ class Phakit {
     function __construct() {
 
         $this->config = PHAKIT_CONFIG;
-
-        if (!defined('PHAKIT_CONFIG')) {
-            die('Please define the PHAKIT_CONFIG constant in the config.php file.');
-        }
 
         if (!empty($this->config['FRONTEND'])) {
             echo '<script src="js/jquery.min.js"></script>';
