@@ -62,13 +62,32 @@ def confirm(text):
 
 # ────────────────────────────── FUNCTION: init ────────────────────────────── #
 def init(dir):
-    printr("Initializing new project...")
-    if dir == None:
-        prompt(f'Project directory not specified. Initialize project in current directory {os.getcwd()}?')
-        dir = os.getcwd()
-    if dir != None and os.path.exists(dir):
-        print('Directory already exists. Please specify a directory that does not exist.')
-        sys.exit(1)
+    directory = args.directory
+
+    if directory is None:
+        directory = prompt(f'Specify project directory (or leave empty to init in {os.getcwd()})')
+        if directory == None:
+            directory = os.getcwd()
+        else:
+            directory = os.path.abspath(directory)
+
+    if os.path.isdir(directory):
+            printr('Directory already exists. Please specify a directory is empty or does not exist.')
+            sys.exit(1)
+    else:
+        shutil.copytree(LOCAL_PATH + "/deploy", directory)
+
+    os.chdir(directory)
+
+    # printr(f"Initializing new project {directory}...")
+    # os.chdir(directory)
+    # printr("Initializing new project...")
+    # if dir == None:
+    #     prompt(f'Project directory not specified. Initialize project in current directory {os.getcwd()}?')
+    #     dir = os.getcwd()
+    # if dir != None and os.path.exists(dir):
+    #     print('Directory already exists. Please specify a directory that does not exist.')
+    #     sys.exit(1)
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                    CONFIG                                    #
@@ -126,26 +145,7 @@ def main():
 #                                     INIT                                     #
 # ──────────────────────────────────────────────────────────────────────────── #
     if args.init is True:
-
-        directory = args.directory
-
-        if directory is None:
-            directory = prompt(f'Specify project directory (or leave empty to init in {os.getcwd()})')
-            if directory == None:
-                directory = os.getcwd()
-            else:
-                directory = os.path.abspath(directory)
-
-        if os.path.isdir(directory):
-            if len(os.listdir(directory)) > 0:
-                printr('Directory already exists and is not empty. Please specify a directory is empty or does not exist.')
-                sys.exit(1)
-        else:
-            os.mkdir(directory)
-
-        printr(f"Initializing new project {directory}...")
-        os.chdir(directory)
-        shutil.copytree(LOCAL_PATH + "/deploy", directory)
+        init()
         
 
 # ──────────────────────────────────────────────────────────────────────────── #
