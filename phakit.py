@@ -140,8 +140,8 @@ def main():
             if os.listdir(directory):
                 printr('Directory already exists and is not empty. Please specify a directory is empty or does not exist.')
                 sys.exit(1)
-            else:
-                os.makedirs(directory)
+        else:
+            os.mkdir(directory)
 
         printr(f"Initializing new project {directory}...")
         os.chdir(directory)
