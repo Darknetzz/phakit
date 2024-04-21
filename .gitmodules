@@ -1,0 +1,3 @@
+[submodule "deploy/php-utils"]
+	path = deploy/php-utils
+	url = git@github.com:Darknetzz/php-utils.git
