@@ -41,8 +41,8 @@ def printr(text, type = "INFO"):
     elif type == "INFO":
         color  = "BLUE"
     elif type == "PROMPT":
-        color  = "GREY"
-    con.print(f"[{type}] {text}", style=f"bold {color}")
+        color  = "ORANGE"
+    con.print(f"[{type}] {text}", style=f"bold {color.lower()}")
 
 # ───────────────────────────── FUNCTION: prompt ───────────────────────────── #
 def prompt(text):
