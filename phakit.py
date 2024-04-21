@@ -137,7 +137,7 @@ def main():
                 directory = os.path.abspath(directory)
 
         if os.path.isdir(directory):
-            if os.listdir(directory):
+            if len(os.listdir(directory)) > 0:
                 printr('Directory already exists and is not empty. Please specify a directory is empty or does not exist.')
                 sys.exit(1)
         else:
