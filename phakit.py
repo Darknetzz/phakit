@@ -125,19 +125,22 @@ def main():
 #                                     INIT                                     #
 # ──────────────────────────────────────────────────────────────────────────── #
     if args.init is True:
-        if args.directory is None:
+
+        directory = args.directory
+
+        if directory is None:
             directory = prompt(f'Specify project directory (or leave empty to init in {os.getcwd()})')
             if directory == None:
-                args.directory = os.getcwd()
+                directory = os.getcwd()
             else:
                 printr("Please specify a directory to initialize the project in.")
                 sys.exit(1)
-        if os.path.exists(args.directory) and os.path.isdir(args.directory) and os.listdir(args.directory) is not None:
+        if os.path.exists(directory) and os.path.isdir(directory) and os.listdir(directory) is not []:
             printr('Directory already exists and is not empty. Please specify a directory is empty or does not exist.')
             sys.exit(1)
 
         printr("Initializing new project...")
-        os.makedirs(args.directory)
+        os.makedirs(directory)
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                     DOCS                                     #
