@@ -133,11 +133,9 @@ def main():
             if directory == None:
                 directory = os.getcwd()
             else:
-                printr("Please specify a directory to initialize the project in.")
-                sys.exit(1)
+                directory = os.path.abspath(directory)
 
-        if os.path.exists(directory) and os.path.isdir(directory) and os.listdir(directory) is not []:
-            printr(os.listdir(directory))
+        if os.path.isdir(directory) and os.listdir(directory):
             printr('Directory already exists and is not empty. Please specify a directory is empty or does not exist.')
             sys.exit(1)
 
