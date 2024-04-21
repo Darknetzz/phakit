@@ -14,25 +14,13 @@
 
         <?php
             if (defined('FRONTEND')) {
-                echo '<script src="js/jquery.min.js"></script>';
-                if (FRONTEND == 'tabler') {
-                    echo '<script src="js/tabler.min.js"></script>';
-                    echo '<link href="css/tabler.min.css" rel="stylesheet" />';
-                } elseif (FRONTEND == 'bootstrap') {
-                    echo '<script src="js/bootstrap.bundle.min.js"></script>';
-                    echo '<link href="css/bootstrap.min.css" rel="stylesheet" />';
-                } else {
-                    echo '<!-- Frontend not found -->';
-                }
+                    echo '<script src="js/jquery.min.js"></script>';
+                    echo '<script src="js/'.FRONTEND.'.min.js"></script>';
+                    echo '<link href="css/'.FRONTEND.'.min.css" rel="stylesheet" />';
             }
+
             if (defined('ICONS')) {
-                if (ICONS == 'tabler') {
-                    echo '<link href="css/tabler-icons.min.css" rel="stylesheet" />';
-                } elseif (ICONS == 'bootstrap') {
-                    echo '<link href="css/bootstrap-icons.min.css" rel="stylesheet" />';
-                } else {
-                    echo '<!-- Icons not found -->';
-                }
+                echo '<link href="css/'.ICONS.'-icons.min.css" rel="stylesheet" />';
             }
         ?>
 
