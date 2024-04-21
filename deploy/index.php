@@ -1,4 +1,5 @@
 <?php
+    require_once('phakit/config.php');
     require_once('phakit/phakit.php');
     define("PHAKIT", new Phakit());
 ?>
