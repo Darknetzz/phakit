@@ -214,7 +214,7 @@ install_update() {
     mkdir -p "$TEMP_PATH"
 
     # Clone the git repo to $TEMP_PATH
-    git clone https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
+    git clone --recurse-submodules https://github.com/Darknetzz/phakit.git "$TEMP_PATH"
 
     # Copy phakit to /etc
     cp -r "$TEMP_PATH/"* "$LOCAL_PATH"

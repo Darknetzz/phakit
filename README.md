@@ -117,12 +117,12 @@ irm "https://raw.githubusercontent.com/Darknetzz/phakit/main/windows/uninstall.p
 # Usage
 To initialize a new project, simply do this:
 ```bash
-./phakit --init "[PROJECT_NAME]" --path "[PATH]"
+phakit --i "[PROJECT_NAME]" -d "[PATH]"
 ```
 
 Automatically create documentation for your project:
 ```bash
-./phpm --docs "[DOCS_FOLDER]"
+phakit --docs "[DOCS_FOLDER]"
 ```
 
 # Uninstalling

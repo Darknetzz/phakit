@@ -47,6 +47,14 @@ def printr(text, type = "INFO"):
 # ───────────────────────────── FUNCTION: prompt ───────────────────────────── #
 def prompt(text):
     printr(text, "prompt")
+    res = input(f"{text}: ")
+    if res == "":
+        return None
+    return res
+
+# ───────────────────────────── FUNCTION: confirm ──────────────────────────── #
+def confirm(text):
+    printr(text, "prompt")
     if input(f"{text} [Y/n]: ").lower() == 'n':
         return False
     return True
@@ -95,30 +103,45 @@ def main():
         parser.print_help()
         sys.exit(1)
 
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                    VERSION                                   #
+# ──────────────────────────────────────────────────────────────────────────── #
     if args.version is True:
         with open("/etc/phakit/VERSION", "r") as v:
             printr("phakit version: " + v.read())
         sys.exit(0)
 
 
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                    UPDATE                                    #
+# ──────────────────────────────────────────────────────────────────────────── #
     if args.update is True:
         printr("Updating phakit...")
         subprocess.run(f"{LOCAL_PATH}/linux/install.sh", shell=True, check=True)
         sys.exit(0)
 
 
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                     INIT                                     #
+# ──────────────────────────────────────────────────────────────────────────── #
     if args.init is True:
-        printr("Initializing new project...")
         if args.directory is None:
-            if prompt(f'Project directory not specified. Initialize project in current directory {os.getcwd()}?'):
+            directory = prompt(f'Specify project directory (or leave empty to init in {os.getcwd()})')
+            if directory == None:
                 args.directory = os.getcwd()
             else:
                 printr("Please specify a directory to initialize the project in.")
                 sys.exit(1)
-        if os.path.exists(args.directory):
-            printr('Directory already exists. Please specify a directory that does not exist.')
+        if os.path.exists(args.directory) and os.path.isdir(args.directory) and os.listdir(args.directory) is not None:
+            printr('Directory already exists and is not empty. Please specify a directory is empty or does not exist.')
             sys.exit(1)
 
+        printr("Initializing new project...")
+        os.makedirs(args.directory)
+
+# ──────────────────────────────────────────────────────────────────────────── #
+#                                     DOCS                                     #
+# ──────────────────────────────────────────────────────────────────────────── #
     if args.docs is True:
         printr("Creating documentation...")
         if os.path.exists(args.directory):
