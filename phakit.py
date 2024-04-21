@@ -80,9 +80,9 @@ def main():
 
     # Flags
     parser.add_argument('-i', '--init', help='Initialize a new project', action='store_true')
-    parser.add_argument('--docs', help='Automatically create docs for your project', action='store_true')
     parser.add_argument('-v', '--version', help='Get current installed version of phakit', action='store_true')
     parser.add_argument('-u', '--update', help='Update phakit to the latest version', action='store_true')
+    parser.add_argument('--docs', help='Automatically create docs for your project', action='store_true')
 
     # Variables
     parser.add_argument('-d', '--directory', help='The directory to use for this action', default=None)

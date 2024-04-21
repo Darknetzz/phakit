@@ -111,7 +111,7 @@ ln -s "$TEMP_PATH/phakit.py" /usr/local/bin/phakit.py
 ### Option 1: Using the automated installed (recommended)
 *Coming soon*
 ```powershell
-Invoke-Expression "& { $(Invoke-RestMethod https://raw.githubusercontent.com/Darknetzz/phakit/main/install.ps1) }"
+irm https://raw.githubusercontent.com/Darknetzz/phakit/main/windows/install.ps1 | iex
 ```
 
 # Usage
