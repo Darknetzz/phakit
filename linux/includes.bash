@@ -241,7 +241,7 @@ fi
 
 # Make sure we have sudo access
 if [ "$EUID" -ne 0 ]; then
-    quit 161 "Precheck failed: Please run installer as root."
+    quit 161 "Precheck failed: Please run installer ($BASH_SOURCE[0]) as root."
 fi
 
 # Check if this script is invoked by the installer script
