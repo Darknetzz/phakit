@@ -7,6 +7,7 @@ import os, sys, argparse, subprocess
 from rich.console import Console
 import requests
 import shutil
+from git import Repo as git
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                   PRECHECKS                                  #
@@ -78,6 +79,11 @@ def init(dir):
 
     os.chdir(dir)
     printr("Project deployed to " + dir, "SUCCESS")
+
+    git.Repo.init(dir)
+    printr("Git repository initialized", "SUCCESS")
+
+
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                    CONFIG                                    #

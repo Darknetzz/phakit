@@ -46,6 +46,7 @@ It is specifically designed for PHP
     - [x] argparse
     - [x] rich
     - [x] shutil
+    - [x] GitPython
 - [x] PHP > 8.3
 - [x] Webserver (Apache2/NGINX)
 
