@@ -235,8 +235,7 @@ install_update() {
 #                           SECTION: #3 PRECHECKS                              #
 # ──────────────────────────────────────────────────────────────────────────── #
 # Only run this section if we are installing/uninstalling phakit
-if [[ "${BASH_SOURCE[1]}" == "install.bash" ] || [ "${BASH_SOURCE[1]}" == "uninstall.bash" ]]; then
-    # Check if we are running bash
+if [ "$(basename "${BASH_SOURCE[1]}")" == "install.bash" ] || [ "$(basename "${BASH_SOURCE[1]}")" == "uninstall.bash" ]; then    # Check if we are running bash
     if [ -z "$BASH_VERSION" ]; then
         quit 160 "Precheck failed: Please run the installer using bash."
     fi
