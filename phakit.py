@@ -62,22 +62,21 @@ def confirm(text):
 
 # ────────────────────────────── FUNCTION: init ────────────────────────────── #
 def init(dir):
-    directory = args.directory
 
-    if directory is None:
-        directory = prompt(f'Specify project directory (or leave empty to init in {os.getcwd()})')
-        if directory == None:
-            directory = os.getcwd()
+    if dir is None:
+        dir = prompt(f'Specify project directory (or leave empty to init in {os.getcwd()})')
+        if dir == None:
+            dir = os.getcwd()
         else:
-            directory = os.path.abspath(directory)
+            dir = os.path.abspath(dir)
 
-    if os.path.isdir(directory):
+    if os.path.isdir(dir):
             printr('Directory already exists. Please specify a directory is empty or does not exist.')
             sys.exit(1)
     else:
-        shutil.copytree(LOCAL_PATH + "/deploy", directory)
+        shutil.copytree(LOCAL_PATH + "/deploy", dir)
 
-    os.chdir(directory)
+    os.chdir(dir)
 
     # printr(f"Initializing new project {directory}...")
     # os.chdir(directory)
@@ -145,7 +144,7 @@ def main():
 #                                     INIT                                     #
 # ──────────────────────────────────────────────────────────────────────────── #
     if args.init is True:
-        init()
+        init(args.directory)
         
 
 # ──────────────────────────────────────────────────────────────────────────── #
