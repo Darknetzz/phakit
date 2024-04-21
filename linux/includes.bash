@@ -234,24 +234,27 @@ install_update() {
 # ──────────────────────────────────────────────────────────────────────────── #
 #                           SECTION: #3 PRECHECKS                              #
 # ──────────────────────────────────────────────────────────────────────────── #
-# Check if we are running bash
-if [ -z "$BASH_VERSION" ]; then
-    quit 160 "Precheck failed: Please run the installer using bash."
-fi
+# Only run this section if we are installing/uninstalling phakit
+if [[ "${BASH_SOURCE[1]}" == "install.bash" ] || [ "${BASH_SOURCE[1]}" == "uninstall.bash" ]]; then
+    # Check if we are running bash
+    if [ -z "$BASH_VERSION" ]; then
+        quit 160 "Precheck failed: Please run the installer using bash."
+    fi
 
-# Make sure we have sudo access
-if [ "$EUID" -ne 0 ]; then
-    quit 161 "Precheck failed: Please run installer (${0}) as root."
-fi
+    # Make sure we have sudo access
+    if [ "$EUID" -ne 0 ]; then
+        quit 161 "Precheck failed: Please run installer (${0}) as root."
+    fi
 
-# Check if this script is invoked by the installer script
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    quit 162 "Precheck failed: This script should not be run directly."
-fi
+    # Check if this script is invoked by the installer script
+    if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+        quit 162 "Precheck failed: This script should not be run directly."
+    fi
 
-# Check if we have /usr/local/bin
-if [ ! -d "$LOCAL_LINK_PATH" ]; then
-    quit 163 "Precheck failed: $LOCAL_LINK_PATH does not exist."
+    # Check if we have /usr/local/bin
+    if [ ! -d "$LOCAL_LINK_PATH" ]; then
+        quit 163 "Precheck failed: $LOCAL_LINK_PATH does not exist."
+    fi
 fi
 # ──────────────────────────────────────────────────────────────────────────── #
 #                             !SECTION: /PRECHECKS                             #
