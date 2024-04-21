@@ -77,16 +77,7 @@ def init(dir):
         shutil.copytree(LOCAL_PATH + "/deploy", dir)
 
     os.chdir(dir)
-
-    # printr(f"Initializing new project {directory}...")
-    # os.chdir(directory)
-    # printr("Initializing new project...")
-    # if dir == None:
-    #     prompt(f'Project directory not specified. Initialize project in current directory {os.getcwd()}?')
-    #     dir = os.getcwd()
-    # if dir != None and os.path.exists(dir):
-    #     print('Directory already exists. Please specify a directory that does not exist.')
-    #     sys.exit(1)
+    printr("Project deployed to " + dir, "SUCCESS")
 
 # ──────────────────────────────────────────────────────────────────────────── #
 #                                    CONFIG                                    #
