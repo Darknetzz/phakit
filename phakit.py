@@ -33,15 +33,15 @@ def printr(text, type = "INFO"):
     color  = ""
     type   = type.upper()
     if type == "SUCCESS":
-        color  = "GREEN"
+        color  = "dark_sea_green2"
     elif type == "ERROR" or type == "DANGER":
-        color  = "RED"
+        color  = "red1"
     elif type == "WARNING":
-        color  = "ORANGE"
+        color  = "orange4"
     elif type == "INFO":
-        color  = "BLUE"
+        color  = "dodger_blue3"
     elif type == "PROMPT":
-        color  = "ORANGE"
+        color  = "magenta"
     con.print(f"[{type}] {text}", style=f"bold {color.lower()}")
 
 # ───────────────────────────── FUNCTION: prompt ───────────────────────────── #
