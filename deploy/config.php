@@ -7,7 +7,7 @@
 
 /* ─────────────────────────────── SITE_TITLE ─────────────────────────────── */
 # Define the site title
-define("SITE_TITLE", "My Website");
+define("SITE_TITLE", "My Phakit Project");
 
 /* ─────────────────────────────── BASE_URL ──────────────────────────────── */
 # Define the base URL
