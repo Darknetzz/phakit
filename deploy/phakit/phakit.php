@@ -1,5 +1,11 @@
 <?php
 
+if (!file_exists('config.php')) {
+    die('Please create a config.php file in the phakit directory.');
+}
+
+require_once('config.php');
+
 class Phakit {
 
     /* ────────────────────────────────────────────────────────────────────────── */
@@ -7,11 +13,6 @@ class Phakit {
     /* ────────────────────────────────────────────────────────────────────────── */
     function __construct() {
 
-        if (!file_exists('config.php')) {
-            die('Please create a config.php file in the phakit directory.');
-        }
-
-        require_once('config.php');
         $this->config = PHAKIT_CONFIG;
 
         if (!defined('PHAKIT_CONFIG')) {
