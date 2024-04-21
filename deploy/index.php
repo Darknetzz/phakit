@@ -25,6 +25,15 @@
                     echo '<!-- Frontend not found -->';
                 }
             }
+            if (defined('ICONS')) {
+                if (ICONS == 'tabler') {
+                    echo '<link href="css/tabler-icons.min.css" rel="stylesheet" />';
+                } elseif (ICONS == 'bootstrap') {
+                    echo '<link href="css/bootstrap-icons.min.css" rel="stylesheet" />';
+                } else {
+                    echo '<!-- Icons not found -->';
+                }
+            }
         ?>
 
     </head>

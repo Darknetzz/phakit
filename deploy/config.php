@@ -18,6 +18,11 @@ define("BASE_URL", "https://".$_SERVER['HTTP_HOST']);
 # Leave empty to disable
 define("FRONTEND", "tabler");
 
+/* ────────────────────────────────── ICONS ───────────────────────────────── */
+# Options: "tabler", "bootstrap"
+# Leave empty to disable
+define("ICONS", "tabler");
+
 /* ────────────────────────────────── THEME ───────────────────────────────── */
 # Options: "light", "dark"
 define("THEME", "dark");

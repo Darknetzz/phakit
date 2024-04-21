@@ -1,12 +1,14 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Home</h1>
-            <p>
+        <div class="card my-3">
+            <h1 class="card-header border border-success">Home</h1>
+            <div class="card-body">
                 Welcome to the Phakit Project. 
                 This is the home page. 
                 You can start building your project from here.
-            </p>
+                <hr>
+                <p>
+                    <a href="https://github.com/Darknetzz/phakit">Github Page</a>
+            </div>
         </div>
     </div>
 </div>
