@@ -48,7 +48,7 @@ def printr(text, type = "INFO"):
 # ───────────────────────────── FUNCTION: prompt ───────────────────────────── #
 def prompt(text):
     printr(text, "prompt")
-    res = input(f"{text}: ")
+    res = input("Project directory:")
     if res == "":
         return None
     return res
