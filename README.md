@@ -111,7 +111,7 @@ ln -s "$TEMP_PATH/phakit.py" /usr/local/bin/phakit.py
 ### Option 1: Using the automated installed (recommended)
 *Coming soon*
 ```powershell
-irm https://raw.githubusercontent.com/Darknetzz/phakit/main/windows/install.ps1 | iex
+irm "https://raw.githubusercontent.com/Darknetzz/phakit/main/windows/uninstall.ps1" | iex
 ```
 
 # Usage
@@ -128,11 +128,15 @@ Automatically create documentation for your project:
 # Uninstalling
 
 ## Linux
-
 * Using cURL:
 ```bash
 sudo su -
 bash <(curl -s https://raw.githubusercontent.com/Darknetzz/phakit/main/linux/uninstall.bash)"
+```
+
+## Windows
+```powershell
+irm "https://raw.githubusercontent.com/Darknetzz/phakit/main/windows/uninstall.ps1" | iex
 ```
 
 # Troubleshooting
