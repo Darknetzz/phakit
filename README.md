@@ -30,9 +30,9 @@ It is specifically designed for PHP
 - [ ] Windows
     - [ ] Installer script
     - [ ] Uninstaller script
-- [ ] Create projects
+- [x] Create projects
 - [ ] Initialize git on project
-- [ ] [php-utils](https://github.com/Darknetzz/php-utils)
+- [x] [php-utils](https://github.com/Darknetzz/php-utils)
 - [ ] [php-api](https://github.com/Darknetzz/php-api)
 - [ ] [js-utils](https://github.com/Darknetzz/js-utils)
 - [ ] Create a `index.php` template
