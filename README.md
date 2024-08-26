@@ -12,7 +12,7 @@
 #   88                                                                          #
 #   dP                                                                          #
 # ───────────────────────────────────────────────────────────────────────────── #
-#                 a PHP project/packager tool for PHP projects                  #
+#                   a project/packager tool for PHP projects                    #
 # ───────────────────────────────────────────────────────────────────────────── #
 # ──────────────────────── Made with ❤️ by @Darknetzz ──────────────────────── #
 # ───────────────────────────────────────────────────────────────────────────── #
@@ -31,7 +31,7 @@ It is specifically designed for PHP
     - [ ] Installer script
     - [ ] Uninstaller script
 - [x] Create projects
-- [ ] Initialize git on project
+- [x] Initialize git on project
 - [x] [php-utils](https://github.com/Darknetzz/php-utils)
 - [ ] [php-api](https://github.com/Darknetzz/php-api)
 - [ ] [js-utils](https://github.com/Darknetzz/js-utils)
