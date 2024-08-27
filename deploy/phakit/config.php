@@ -13,7 +13,7 @@ define("PHAKIT_CONFIG",
 
     /* ─────────────────────────────── BASE_URL ──────────────────────────────── */
     # Define the base URL
-    "BASE_URL" => "https://".$_SERVER['HTTP_HOST'],
+    "BASE_URL" => PHAKIT_CONFIG["PROTOCOL"]."://".$_SERVER['HTTP_HOST'],
 
     /* ──────────────────────────────── FRONTEND ──────────────────────────────── */
     # Options: "tabler", "bootstrap"
@@ -21,7 +21,7 @@ define("PHAKIT_CONFIG",
 
     /* ────────────────────────────────── ICONS ───────────────────────────────── */
     # Options: "tabler", "bootstrap"
-    "ICONS" => "tabler",
+    "ICONS" => "bootstrap",
 
     /* ────────────────────────────────── THEME ───────────────────────────────── */
     # Options: "light", "dark"
