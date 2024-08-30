@@ -5,28 +5,30 @@
 /* ────────────────────────────────────────────────────────────────────────── */
 # Specify your project's settings here
 
-define("PHAKIT_CONFIG", 
-[
-    /* ─────────────────────────────── SITE_TITLE ─────────────────────────────── */
-    # Define the site title
-    "SITE_TITLE" => "My Phakit Project",
+/* ─────────────────────────────── SITE_TITLE ─────────────────────────────── */
+# Define the site title
+$cfg["SITE_TITLE"] = "My Phakit Project";
 
-    /* ─────────────────────────────── BASE_URL ──────────────────────────────── */
-    # Define the base URL
-    "BASE_URL" => PHAKIT_CONFIG["PROTOCOL"]."://".$_SERVER['HTTP_HOST'],
+/* ─────────────────────────────── PROTOCOL ──────────────────────────────── */
+# Define the protocol
+$cfg["PROTOCOL"]   = "http";
 
-    /* ──────────────────────────────── FRONTEND ──────────────────────────────── */
-    # Options: "tabler", "bootstrap"
-    "FRONTEND" => "tabler",
+/* ─────────────────────────────── BASE_URL ──────────────────────────────── */
+# Define the base URL
+$cfg["BASE_URL"]   = $cfg["PROTOCOL"]."://".$_SERVER['HTTP_HOST'];
 
-    /* ────────────────────────────────── ICONS ───────────────────────────────── */
-    # Options: "tabler", "bootstrap"
-    "ICONS" => "bootstrap",
+/* ──────────────────────────────── FRONTEND ──────────────────────────────── */
+# Options: "tabler", "bootstrap"
+$cfg["FRONTEND"]   = "tabler";
 
-    /* ────────────────────────────────── THEME ───────────────────────────────── */
-    # Options: "light", "dark"
-    "THEME" => "dark"
-]
-);
+/* ────────────────────────────────── ICONS ───────────────────────────────── */
+# Options: "tabler", "bootstrap"
+$cfg["ICONS"]      = "bootstrap";
+
+/* ────────────────────────────────── THEME ───────────────────────────────── */
+# Options: "light", "dark"
+$cfg["THEME"]      = "dark";
+
+define("PHAKIT_CONFIG", $cfg);
 
 ?>
